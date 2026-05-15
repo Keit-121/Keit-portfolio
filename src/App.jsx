@@ -1,24 +1,122 @@
+import { useState } from 'react';
+import { FaFacebook, FaTiktok, FaInstagram, FaGithub, FaDiscord, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+
+ const planetCards = [
+  { id: 1, title: 'Hobby', type: 'video', media: 'Hobby.mp4' }, // Đổi tên file mp4 của cậu vào đây
+  { id: 2, title: 'Gaming', type: 'video', media: 'Gaming.mp4' }, // Đổi tên file mp4 của cậu vào đây
+  { id: 3, title: 'Software Testing', type: 'iframe', media: 'Stars.html' } // Ví dụ dùng iframe
+];
+
+
 function App() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // Biến mới: Kiểm tra xem tàu có đang thực hiện "Bước nhảy không gian" không
+  const [isWarping, setIsWarping] = useState(false);
+
+  // Hàm xử lý chuyển cảnh
+  const changePlanet = (newIndex) => {
+    if (isWarping) return; // Nếu đang bay thì không cho bấm liên tục
+    
+    setIsWarping(true); // Bật hiệu ứng bay
+    
+    // Đợi 0.4 giây cho hiệu ứng diễn ra rồi mới đổi nội dung
+    setTimeout(() => {
+      setCurrentIndex(newIndex);
+      setIsWarping(false); // Tắt hiệu ứng bay
+    }, 400); 
+  };
+
+  const nextPlanet = () => {
+    const nextIndex = currentIndex === planetCards.length - 1 ? 0 : currentIndex + 1;
+    changePlanet(nextIndex);
+  };
+
+  const prevPlanet = () => {
+    const prevIndex = currentIndex === 0 ? planetCards.length - 1 : currentIndex - 1;
+    changePlanet(prevIndex);
+  };
+
+  const prevIndex = currentIndex === 0 ? planetCards.length - 1 : currentIndex - 1;
+  const nextIndex = currentIndex === planetCards.length - 1 ? 0 : currentIndex + 1;
+
+  const renderMedia = (card) => {
+    const mediaUrl = `${import.meta.env.BASE_URL}${card.media}`;
+    if (card.type === 'video') {
+      return <video src={mediaUrl} autoPlay loop muted playsInline className="planet-media" />;
+    }
+    if (card.type === 'iframe') {
+      return <iframe src={mediaUrl} className="planet-media" title={card.title} />;
+    }
+    // Mặc định là hình ảnh
+    return <img src={mediaUrl} alt={card.title} className="planet-media" />;
+  };
   return (
     <>
-      {/* Khung chứa Background */}
       <iframe
         src={`${import.meta.env.BASE_URL}Stars.html`}
         className="background-iframe"
         title="Stars Background"
       />
 
-      {/* THÊM THẺ IMG NÀY VÀO ĐÂY: Avatar góc trái */}
-      <img
-        src={`${import.meta.env.BASE_URL}Avatar2.jpg`}
-        alt="Avatar Vương Tuấn Kiệt"
-        className="profile-avatar"
-      />
+      {/* Hiệu ứng chớp sáng toàn màn hình khi Warp */}
+      {isWarping && <div className="warp-flash"></div>}
 
-      {/* Nội dung Portfolio của bạn sẽ nằm ở đây */}
-      <div className="portfolio-content">
-        <h1>Vương Tuấn Kiệt</h1>
-        <p>Full-stack Developer | Web Portfolio</p>
+      {/* CÁI HỘP MỚI BỌC CẢ AVATAR VÀ CHỮ */}
+      <div className="profile-header">
+        <img
+          src={`${import.meta.env.BASE_URL}Avatar2.jpg`}
+          alt="Avatar Vương Tuấn Kiệt"
+          className="profile-avatar"
+        />
+        
+        <div className="profile-info">
+          <h1>Vương Tuấn Kiệt</h1>
+          <p>Email:tuankiet121107@gmail.com</p>
+          <p>Phone: 0394140820</p>
+        </div>
+      </div>
+
+      {/* KHU VỰC TRUNG TÂM: SLIDER VỚI PREVIEW */}
+      <div className="slider-with-previews">
+        
+        {currentIndex > 0 && (
+          <div className="planet-sphere preview-planet left-preview" onClick={prevPlanet}>
+            {renderMedia(planetCards[prevIndex])}
+            <div className="planet-shadow-overlay"></div>
+            <h3>{planetCards[prevIndex].title}</h3>
+          </div>
+        )}
+
+        <div className={`planet-sphere active-planet ${isWarping ? 'warping' : ''}`} key={currentIndex}>
+          {renderMedia(planetCards[currentIndex])}
+          <div className="planet-shadow-overlay"></div>
+          <h3>{planetCards[currentIndex].title}</h3>
+        </div>
+
+        {currentIndex < planetCards.length - 1 && (
+          <div className="planet-sphere preview-planet right-preview" onClick={nextPlanet}>
+            {renderMedia(planetCards[nextIndex])}
+            <div className="planet-shadow-overlay"></div>
+            <h3>{planetCards[nextIndex].title}</h3>
+          </div>
+        )}
+
+      </div>
+
+      <div className="social-links">
+        <a href="https://www.tiktok.com/@keit.1217?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" className="icon-tiktok">
+          <FaTiktok />
+        </a>
+        <a href="https://www.facebook.com/tuan.kiet.343168?locale=vi_VN" target="_blank" rel="noopener noreferrer" className="icon-facebook">
+          <FaFacebook />
+        </a>
+        <a href="https://www.instagram.com/keit_121/" target="_blank" rel="noopener noreferrer" className="icon-instagram">
+          <FaInstagram />
+        </a>
+        <a href="https://github.com/Keit-121" target="_blank" rel="noopener noreferrer" className="icon-github">
+          <FaGithub />
+        </a>
       </div>
     </>
   );

@@ -4,8 +4,12 @@ body, html {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
+  cursor: url('/ufo.png'), auto;
 }
 
+a, button, .planet-sphere, .preview-planet {
+  cursor: url('/ufo.png'), pointer !important;
+}
 /* Biến iframe thành hình nền full màn hình */
 .background-iframe {
   position: fixed;
@@ -19,26 +23,266 @@ body, html {
 }
 
 /* Căn chỉnh nội dung của bạn nổi bật lên trên */
-.portfolio-content {
-  position: relative;
-  z-index: 1; /* Nổi lên trên background */
-  color: white; /* Đổi màu chữ sang trắng để nổi trên nền sao */
-  text-align: center;
-  margin-top: 20vh; /* Cách đỉnh một khoảng cho đẹp */
-  font-family: sans-serif;
-}
-
-.profile-avatar {
-  position: absolute; /* Neo chặt ảnh vào một vị trí cụ thể */
+/* 1. Thiết lập cái hộp chứa vứt lên góc trái */
+.profile-header {
+  position: absolute; /* Neo cái hộp lên góc */
   top: 30px;          /* Cách lề trên 30px */
   left: 30px;         /* Cách lề trái 30px */
-  width: 120px;       /* Chiều rộng ảnh */
-  height: 120px;      /* Chiều cao ảnh (bằng chiều rộng để tạo hình vuông gốc) */
-  border-radius: 50%; /* Phép thuật biến hình vuông thành hình tròn */
-  object-fit: cover;  /* Ép ảnh vừa khít hình tròn mà không bị méo hay bóp tỉ lệ */
-  
-  /* Thêm tí viền và bóng đổ cho nó nổi bật trên nền sao */
+  display: flex;      /* Ép các phần tử bên trong (ảnh và chữ) nằm ngang hàng */
+  align-items: center;/* Căn cho chữ nằm giữa chiều dọc của ảnh */
+  gap: 20px;          /* Khoảng cách giữa ảnh và chữ */
+  z-index: 10;        /* Đảm bảo nổi lên trên nền sao */
+}
+
+/* 2. Sửa lại Avatar (Xóa các thuộc tính position cũ đi vì cái hộp đã lo vị trí rồi) */
+.profile-avatar {
+  width: 80px;        /* Thu nhỏ avatar lại một chút cho cân đối với chữ */
+  height: 80px;
+  border-radius: 50%; 
+  object-fit: cover;  
   border: 3px solid #ffffff; 
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-  z-index: 10;        /* Đảm bảo avatar luôn nổi lên trên cùng, không bị nền đè lên */
+}
+
+/* 3. Trang trí phần chữ */
+.profile-info {
+  color: white;             /* Chữ màu trắng để nổi trên nền sao */
+  font-family: sans-serif;
+  text-align: left;         /* Ép chữ căn lề trái (mặc định của bạn đang là giữa) */
+}
+
+.profile-info h1 {
+  margin: 0;                /* Xóa khoảng trống thừa của thẻ h1 */
+  font-size: 28px;          /* Cỡ chữ tên */
+}
+
+.profile-info p {
+  margin: 5px 0 0 0;        /* Xóa khoảng trống thừa, chỉ cách tên 5px */
+  font-size: 16px;          /* Cỡ chữ chức danh */
+  color: #cccccc;           /* Cho màu chức danh hơi xám lại để tôn tên chính lên */
+}
+
+/* --- Hộp chứa các icon mạng xã hội --- */
+.social-links {
+  position: fixed;    
+  bottom: 30px;       
+  right: 30px;        
+  display: flex;      
+  gap: 20px;          
+  z-index: 10;        
+}
+
+/* Định dạng cơ bản cho cả 4 icon */
+.social-links a {
+  color: white;       
+  font-size: 30px;    
+  transition: all 0.3s ease; 
+}
+
+/* Hiệu ứng nảy lên dùng chung khi di chuột vào */
+.social-links a:hover {
+  transform: translateY(-8px); 
+}
+
+/* BẢNG MÀU ĐẶC TRƯNG CHO TỪNG ICON KHI HOVER */
+.social-links .icon-tiktok:hover {
+  color: #ff0050; /* Màu đỏ đặc trưng của TikTok */
+  filter: drop-shadow(2px 2px 0px #00f2fe); /* Tạo hiệu ứng chập màu 3D chuẩn TikTok */
+}
+
+.social-links .icon-facebook:hover {
+  color: #1877F2; /* Xanh Facebook */
+}
+
+.social-links .icon-instagram:hover {
+  color: #E1306C; /* Hồng Instagram */
+}
+
+.social-links .icon-github:hover {
+  color: #a8a8a8; /* Xám bạc GitHub (để nổi trên nền đen) */
+}
+
+/* --- THUỘC TÍNH CHUNG CHO QUẢ CẦU (radial-gradient, box-shadow, v.v.) --- */
+/* --- 1. THIẾT KẾ QUẢ CẦU CHUNG --- */
+.planet-sphere {
+  border-radius: 50%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 
+    inset -30px -30px 60px rgba(0, 0, 0, 0.8), 
+    inset 15px 15px 30px rgba(255, 255, 255, 0.4), 
+    0 0 40px rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  transition: all 0.5s ease; 
+  position: absolute; 
+}
+
+/* --- 2. THẺ H3 (HIỆU ỨNG KÍNH MỜ) --- */
+.planet-sphere h3 {
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin: 0;
+  
+  /* Xóa sạch nền và khung */
+  background: transparent;
+  backdrop-filter: none;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  
+  /* Tạo bóng đen phát sáng tỏa ra xung quanh chữ */
+  text-shadow: 
+    0 0 10px rgba(0, 0, 0, 1),
+    0 0 20px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(0, 0, 0, 0.6);
+    
+  z-index: 3;
+}
+
+/* --- 3. KHU VỰC TRUNG TÂM: SLIDER CONTAINER --- */
+.slider-with-previews {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  padding: 0 5%;
+  box-sizing: border-box;
+  z-index: 5;
+  height: 500px; 
+}
+
+/* --- 4. QUẢ CẦU CHÍNH (GIỮA) --- */
+.active-planet {
+  width: 380px;
+  height: 380px;
+  padding: 40px;
+  z-index: 10; 
+  position: relative; 
+  margin: 0 auto; 
+  animation: floatPlanet 4s ease-in-out infinite, arriveFromSpace 0.5s ease-out;
+}
+
+.active-planet h3 {
+  font-size: 32px;
+}
+
+/* --- 5. CÁC BẢN XEM TRƯỚC (2 BÊN) --- */
+.preview-planet {
+  width: 200px; 
+  height: 200px;
+  padding: 15px;
+  cursor: pointer;
+  z-index: 8; 
+  opacity: 0.5; 
+  filter: blur(5px); 
+  transform: scale(0.8) translateY(20px); 
+}
+
+.preview-planet h3 {
+  background: transparent;
+  backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  font-size: 16px; 
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.9); 
+}
+
+.planet-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ép media lấp đầy khối cầu */
+  z-index: 1; /* Nằm dưới cùng */
+  border: none;
+  pointer-events: none; /* Tránh click nhầm vào iframe/video */
+}
+
+/* --- Lớp phủ tạo độ lồi 3D --- */
+.planet-shadow-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 
+    inset -30px -30px 60px rgba(0, 0, 0, 0.8), 
+    inset 15px 15px 30px rgba(255, 255, 255, 0.4), 
+    0 0 40px rgba(255, 255, 255, 0.15);
+  z-index: 2; /* Nằm đè lên trên media */
+  pointer-events: none; 
+}
+
+.left-preview { left: 0; }
+.right-preview { right: 0; }
+
+.preview-planet:hover {
+  opacity: 0.8;
+  filter: blur(2px); 
+  transform: scale(0.85) translateY(15px);
+}
+
+/* --- 6. HIỆU ỨNG BƯỚC NHẢY KHÔNG GIAN (WARP SPEED) --- */
+.warp-flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 9999; 
+  pointer-events: none; 
+  animation: flashAnim 0.4s ease-out forwards;
+}
+
+.warping {
+  animation: flyPastCamera 0.4s ease-in forwards !important;
+}
+
+/* --- 7. TỔNG HỢP KEYFRAMES (ANIMATION) --- */
+@keyframes flashAnim {
+  0% { opacity: 0; }
+  50% { opacity: 1; background: rgba(255, 255, 255, 0.7); }
+  100% { opacity: 0; }
+}
+
+@keyframes flyPastCamera {
+  0% { transform: scale(1); opacity: 1; }
+  100% { 
+    transform: scale(4) translateZ(500px); 
+    opacity: 0; 
+    filter: blur(20px); 
+  }
+}
+
+@keyframes arriveFromSpace {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.1) translateZ(-1000px); 
+    filter: blur(10px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1) translateZ(0); 
+    filter: blur(0);
+  }
+}
+
+@keyframes floatPlanet {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
 }
