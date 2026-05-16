@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { FaFacebook, FaTiktok, FaInstagram, FaGithub, FaDiscord, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
  const planetCards = [
-  { id: 1, title: 'Hobby', type: 'video', media: 'Hobby.mp4' }, // Đổi tên file mp4 của cậu vào đây
-  { id: 2, title: 'Gaming', type: 'video', media: 'Gaming.mp4' }, // Đổi tên file mp4 của cậu vào đây
-  { id: 3, title: 'Software Testing', type: 'iframe', media: 'Stars.html' } // Ví dụ dùng iframe
+  { id: 1, title: 'Prelude Planet', type: 'video', media: 'Introduce.mp4' }, 
+  { id: 2, title: 'Passion Planet', type: 'video', media: 'Hobby.mp4' }, 
+  { id: 3, title: 'Arcade Planet', type: 'image', media: 'Gaming.gif' },
+  { id: 4, title: 'Rhythm Planet', type: 'video', media: 'Music.mp4' }
 ];
 
 
@@ -72,8 +73,7 @@ function App() {
         
         <div className="profile-info">
           <h1>Vương Tuấn Kiệt</h1>
-          <p>Email:tuankiet121107@gmail.com</p>
-          <p>Phone: 0394140820</p>
+          <p>Porfolio Website</p>
         </div>
       </div>
 

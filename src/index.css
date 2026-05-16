@@ -106,7 +106,6 @@ a, button, .planet-sphere, .preview-planet {
 /* --- 1. THIẾT KẾ QUẢ CẦU CHUNG --- */
 .planet-sphere {
   border-radius: 50%;
-  overflow: hidden;
   background-size: cover;
   background-position: center;
   box-shadow: 
@@ -125,6 +124,10 @@ a, button, .planet-sphere, .preview-planet {
 
 /* --- 2. THẺ H3 (HIỆU ỨNG KÍNH MỜ) --- */
 .planet-sphere h3 {
+  position: absolute;
+  bottom: -90px; /* Đẩy chữ lên trên, cách đỉnh hành tinh 70px */
+  width: max-content;
+
   color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 4px;
@@ -206,6 +209,7 @@ a, button, .planet-sphere, .preview-planet {
   width: 100%;
   height: 100%;
   object-fit: cover; /* Ép media lấp đầy khối cầu */
+  border-radius: 50%;
   z-index: 1; /* Nằm dưới cùng */
   border: none;
   pointer-events: none; /* Tránh click nhầm vào iframe/video */
