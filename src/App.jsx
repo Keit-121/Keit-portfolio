@@ -15,6 +15,39 @@ function App() {
   // Biến mới: Kiểm tra xem tàu có đang thực hiện "Bước nhảy không gian" không
   const [isWarping, setIsWarping] = useState(false);
 
+  // --- THÊM LOGIC VUỐT (SWIPE) CHO MOBILE ---
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  // Khoảng cách vuốt tối thiểu để nhận diện (tránh việc chạm nhẹ nhầm)
+  const minSwipeDistance = 50; 
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null); // Reset lại điểm kết thúc mỗi khi chạm mới
+    setTouchStart(e.targetTouches[0].clientX); // Lưu tọa độ X lúc bắt đầu chạm
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX); // Cập nhật tọa độ X khi ngón tay di chuyển
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      // Vuốt ngón tay sang TRÁI -> Đi tới hành tinh TỚI
+      nextPlanet(); 
+    }
+    if (isRightSwipe) {
+      // Vuốt ngón tay sang PHẢI -> Lùi về hành tinh LÙI
+      prevPlanet(); 
+    }
+  };
+
   // Hàm xử lý chuyển cảnh
   const changePlanet = (newIndex) => {
     if (isWarping) return; // Nếu đang bay thì không cho bấm liên tục
@@ -78,7 +111,12 @@ function App() {
       </div>
 
       {/* KHU VỰC TRUNG TÂM: SLIDER VỚI PREVIEW */}
-      <div className="slider-with-previews">
+      <div 
+        className="slider-with-previews"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
         
         {currentIndex > 0 && (
           <div className="planet-sphere preview-planet left-preview" onClick={prevPlanet}>

@@ -290,3 +290,87 @@ a, button, .planet-sphere, .preview-planet {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
 }
+
+/* =========================================
+   RESPONSIVE CHO ĐIỆN THOẠI VÀ TABLET NHỎ
+   ========================================= */
+@media (max-width: 768px) {
+  
+  /* 1. Phần Giới thiệu (Avatar + Info) */
+  .profile-header {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%); 
+    flex-direction: column; 
+    text-align: center;
+    gap: 10px;
+    width: 90%;
+  }
+
+  .profile-avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .profile-info h1 {
+    font-size: 20px;
+  }
+
+  .profile-info p {
+    font-size: 12px;
+    margin: 2px 0;
+    display: none; /* MẸO: Có thể ẩn bớt email/phone trên mobile cho thoáng, nếu cậu thích thì xóa dòng này đi */
+  }
+
+  /* --- SỬA 1: Dịch toàn bộ cụm hành tinh xuống dưới một chút --- */
+  .slider-with-previews {
+    top: 58%; /* Đổi từ 50% thành 58% để trọng tâm tụt xuống dưới */
+  }
+
+  /* --- SỬA 2: Thu nhỏ quả cầu chính --- */
+  .active-planet {
+    width: 220px; /* Thu nhỏ từ 250px xuống 220px */
+    height: 220px;
+  }
+
+  .active-planet h3 {
+    font-size: 18px; /* Tên nhỏ lại 1 chút xíu cho cân đối với quả cầu */
+    top: -45px; 
+    letter-spacing: 3px;
+  }
+
+  /* 3. Quả cầu XEM TRƯỚC (2 BÊN) */
+  .preview-planet {
+    width: 70px; /* Thu nhỏ lây sang quả phụ cho hài hòa */
+    height: 70px;
+  }
+
+  .left-preview {
+    left: -20px; 
+  }
+
+  .right-preview {
+    right: -20px;
+  }
+
+  .preview-planet h3 {
+    font-size: 10px;
+    top: -25px;
+    letter-spacing: 1px;
+    padding: 0; 
+  }
+
+  /* --- SỬA 3: Đẩy cụm Social lùi vào lề phải dưới cùng --- */
+  .social-links {
+    bottom: 25px;
+    right: 25px;      /* Cố định sát mép phải 25px */
+    transform: none;  /* Gỡ bỏ lệnh căn giữa cũ */
+    justify-content: flex-end; /* Xếp các icon dồn về góc phải */
+    width: auto;
+    gap: 15px;
+  }
+
+  .social-links a {
+    font-size: 20px; /* Size vừa ngón tay bấm */
+  }
+}
