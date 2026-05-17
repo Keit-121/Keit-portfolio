@@ -3,8 +3,9 @@ body, html {
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
   cursor: url('/ufo.png'), auto;
+  position: fixed;
 }
 
 a, button, .planet-sphere, .preview-planet {
@@ -36,8 +37,8 @@ a, button, .planet-sphere, .preview-planet {
 
 /* 2. Sửa lại Avatar (Xóa các thuộc tính position cũ đi vì cái hộp đã lo vị trí rồi) */
 .profile-avatar {
-  width: 80px;        /* Thu nhỏ avatar lại một chút cho cân đối với chữ */
-  height: 80px;
+  width: 60px;        /* Thu nhỏ avatar lại một chút cho cân đối với chữ */
+  height: 60px;
   border-radius: 50%; 
   object-fit: cover;  
   border: 3px solid #ffffff; 
@@ -53,7 +54,7 @@ a, button, .planet-sphere, .preview-planet {
 
 .profile-info h1 {
   margin: 0;                /* Xóa khoảng trống thừa của thẻ h1 */
-  font-size: 28px;          /* Cỡ chữ tên */
+  font-size: 22px;          /* Cỡ chữ tên */
 }
 
 .profile-info p {
@@ -65,7 +66,7 @@ a, button, .planet-sphere, .preview-planet {
 /* --- Hộp chứa các icon mạng xã hội --- */
 .social-links {
   position: fixed;    
-  bottom: 30px;       
+  bottom: 15px;       
   right: 30px;        
   display: flex;      
   gap: 20px;          
@@ -119,13 +120,13 @@ a, button, .planet-sphere, .preview-planet {
   text-align: center;
   color: white;
   transition: all 0.5s ease; 
-  position: absolute; 
+  position: absolute;
 }
 
 /* --- 2. THẺ H3 (HIỆU ỨNG KÍNH MỜ) --- */
 .planet-sphere h3 {
   position: absolute;
-  bottom: -90px; /* Đẩy chữ lên trên, cách đỉnh hành tinh 70px */
+  top: -70px; /* Đẩy chữ lên trên, cách đỉnh hành tinh 70px */
   width: max-content;
 
   color: #ffffff;
@@ -167,23 +168,29 @@ a, button, .planet-sphere, .preview-planet {
 
 /* --- 4. QUẢ CẦU CHÍNH (GIỮA) --- */
 .active-planet {
-  width: 380px;
-  height: 380px;
+  width: 280px;
+  height: 280px;
   padding: 40px;
   z-index: 10; 
   position: relative; 
   margin: 0 auto; 
   animation: floatPlanet 4s ease-in-out infinite, arriveFromSpace 0.5s ease-out;
+  left: 0; 
+  transform: scale(1);
+  transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  pointer-events: auto; /* Chỉ nhận chuột khi chạm đúng vào hành tinh */
+  flex-shrink: 0;
+  bottom: -40px;
 }
 
 .active-planet h3 {
-  font-size: 32px;
+  font-size: 24px;
 }
 
 /* --- 5. CÁC BẢN XEM TRƯỚC (2 BÊN) --- */
 .preview-planet {
-  width: 200px; 
-  height: 200px;
+  width: 150px; 
+  height: 150px;
   padding: 15px;
   cursor: pointer;
   z-index: 8; 
@@ -240,6 +247,142 @@ a, button, .planet-sphere, .preview-planet {
   transform: scale(0.85) translateY(15px);
 }
 
+/* --- SÂN KHẤU CHÍNH CỦA QUẢ CẦU --- */
+.center-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  width: 280px;
+  height: 280px;
+  pointer-events: auto;
+  background: transparent !important;
+  flex-shrink: 0;
+}
+
+/* Sửa lại class chứa tên lơ lửng trên đỉnh */
+.planet-name-title {
+  position: absolute;
+  top: -70px;
+  width: max-content;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(0,0,0,1), 0 0 20px rgba(0,242,254,0.6), 0 0 40px rgba(0,242,254,0.4);
+  z-index: 15;
+  transition: all 0.5s ease; /* Thêm transition để lát nữa ẩn đi cho mượt */
+}
+
+/* --- BẢNG THÔNG TIN (Bên Phải) --- */
+.planet-info-panel {
+  position: fixed;
+  right: 100px;
+  top: 50%;
+
+  width: calc(50vw - 100px);
+  max-width: 800px;
+  height: 60vh;
+
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  background: rgba(10, 15, 30, 0.7); /* Nền xanh đen kính mờ */
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 242, 254, 0.1);
+  color: white;
+  text-align: left;
+  
+  /* Trạng thái mặc định: Ẩn và thụt vào trong */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50px) scale(0.9);
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 5;
+  pointer-events: auto;
+}
+
+.planet-info-panel h2 {
+  margin: 0 0 10px 0;
+  font-size: 30px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #00f2fe;
+}
+
+.info-divider {
+  height: 2px;
+  width: 50px;
+  background: #00f2fe;
+  margin-bottom: 15px;
+  box-shadow: 0 0 10px #00f2fe;
+}
+
+.planet-info-panel p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin-bottom: 25px;
+}
+
+.explore-btn {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #00f2fe;
+  padding: 10px 25px;
+  border-radius: 50px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer; /* Chỗ này nó sẽ nhận con chuột UFO của cậu này! */
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+  margin-top: auto; /* Tự động đẩy nút xuống sát đáy bảng */
+  align-self: flex-end; /* Đẩy nút dạt sang góc bên phải */
+}
+
+.explore-btn:hover {
+  background: #00f2fe;
+  color: #000;
+  box-shadow: 0 0 20px #00f2fe;
+}
+
+/* =========================================
+   MA THUẬT XẢY RA KHI HOVER
+   ========================================= */
+
+/* 1. Đẩy hành tinh dạt sang trái */
+.center-stage.expanded .active-planet {
+  animation: none !important; /* Tắt hẳn hiệu ứng lơ lửng để giải phóng thuộc tính transform */
+  left: -28vw !important; /* Ép buộc di chuyển sang trái */
+  bottom: 0 !important;
+  transform: scale(1.2) !important; /* Ép buộc phóng to 20% */
+}
+
+/* 2. Kéo bảng text khổng lồ từ phải vào */
+.center-stage.expanded .planet-info-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0); 
+}
+
+/* 3. Giấu biển tên đi */
+.center-stage.expanded .planet-name-title {
+  opacity: 0;
+  transform: translateY(-50px) scale(0.5);
+}
+
+/* 4. Giấu nhẹm 2 hành tinh preview (Vì chúng là thẻ anh em của center-stage nên dùng dấu ~ ) */
+.center-stage.expanded ~ .preview-planet {
+  opacity: 0;
+  pointer-events: none; 
+}
+
 /* --- 6. HIỆU ỨNG BƯỚC NHẢY KHÔNG GIAN (WARP SPEED) --- */
 .warp-flash {
   position: fixed;
@@ -255,6 +398,23 @@ a, button, .planet-sphere, .preview-planet {
 
 .warping {
   animation: flyPastCamera 0.4s ease-in forwards !important;
+}
+
+/* --- LỚP MÀNG NỀN KHI MỞ BẢNG TEXT --- */
+.close-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 15; /* Nằm TRÊN hành tinh (10) nhưng DƯỚI bảng text (20) */
+  background: transparent !important;
+  cursor: pointer;
+}
+
+/* ÉP bảng text phải nổi lên trên cùng (Sửa lại z-index của class cũ) */
+.planet-info-panel {
+  z-index: 20 !important; 
 }
 
 /* --- 7. TỔNG HỢP KEYFRAMES (ANIMATION) --- */
@@ -324,7 +484,7 @@ a, button, .planet-sphere, .preview-planet {
 
   /* --- SỬA 1: Dịch toàn bộ cụm hành tinh xuống dưới một chút --- */
   .slider-with-previews {
-    top: 58%; /* Đổi từ 50% thành 58% để trọng tâm tụt xuống dưới */
+    top: 50%; /* Đổi từ 50% thành 58% để trọng tâm tụt xuống dưới */
   }
 
   /* --- SỬA 2: Thu nhỏ quả cầu chính --- */
@@ -372,5 +532,26 @@ a, button, .planet-sphere, .preview-planet {
 
   .social-links a {
     font-size: 20px; /* Size vừa ngón tay bấm */
+  }
+.planet-info-panel {
+    top: 50%;
+    left: 50%;
+    right: auto; /* Hủy lệnh bám lề phải của bản máy tính */
+    width: 70%; /* Chiếm 90% chiều rộng điện thoại */
+    height: auto;
+    max-height: 80vh; /* Chống tràn quá cao */
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  /* Khi được mở ra: Bung lên chính giữa đè lên hành tinh */
+  .center-stage.expanded .planet-info-panel {
+    transform: translate(-50%, -50%) scale(1); 
+  }
+
+  /* Hành tinh trên ĐT khi bấm vào sẽ KHÔNG văng lên trên nữa, mà đứng im và tối đi một chút */
+  .center-stage.expanded .active-planet {
+    left: 0 !important;
+    transform: scale(1) !important;  /* Không phóng to trên ĐT cho đỡ cấn */
+    filter: brightness(0.5); /* Làm tối quả cầu đi để người ta tập trung đọc chữ */
   }
 }
