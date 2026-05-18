@@ -309,7 +309,7 @@ a, button, .planet-sphere, .preview-planet {
 
 .planet-info-panel h2 {
   margin: 0 0 10px 0;
-  font-size: 30px;
+  font-size: 40px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #00f2fe;
@@ -324,7 +324,7 @@ a, button, .planet-sphere, .preview-planet {
 }
 
 .planet-info-panel p {
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.6;
   color: #cbd5e1;
   margin-bottom: 25px;
@@ -533,15 +533,19 @@ a, button, .planet-sphere, .preview-planet {
   .social-links a {
     font-size: 20px; /* Size vừa ngón tay bấm */
   }
-.planet-info-panel {
-    top: 50%;
-    left: 50%;
-    right: auto; /* Hủy lệnh bám lề phải của bản máy tính */
-    width: 70%; /* Chiếm 90% chiều rộng điện thoại */
-    height: auto;
-    max-height: 80vh; /* Chống tràn quá cao */
-    transform: translate(-50%, -50%) scale(0.9);
-  }
+  .planet-info-panel {
+      top: 50%;
+      left: 50%;
+      right: auto; /* Hủy lệnh bám lề phải của bản máy tính */
+      width: 70%; /* Chiếm 90% chiều rộng điện thoại */
+      height: auto;
+      max-height: 80vh; /* Chống tràn quá cao */
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+
+    .planet-info-panel p {
+      font-size: 15px !important;
+   }
 
   /* Khi được mở ra: Bung lên chính giữa đè lên hành tinh */
   .center-stage.expanded .planet-info-panel {
