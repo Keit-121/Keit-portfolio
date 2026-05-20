@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import KeitUniverse from './pages/KeitUniverse';
 import PreludePlanet from './pages/PreludePlanet';
 import PassionPlanet from './pages/PassionPlanet';
@@ -11,11 +11,10 @@ import LabPlanet from './pages/LabPlanet';
 
 function App() {
   return (
-    <Router basename={import.meta.env.BASE_URL}>
+    <Router>
       <Routes>
         {/* Trang chủ mặc định sẽ load file Home.jsx */}
         <Route path="/" element={<KeitUniverse />} />
-        
         {/* Khi URL là /prelude thì sẽ load file Prelude.jsx */}
         <Route path="/prelude" element={<PreludePlanet />} />
         <Route path="/passion" element={<PassionPlanet />} />
