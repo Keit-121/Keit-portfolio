@@ -1,0 +1,160 @@
+/* Bảng panel gốc - kế thừa form dáng kính mờ cũ của cậu */
+.planetInfoPanel {
+  position: fixed;
+  width: 80vw;
+  height: 65vh;
+  padding: 40px;
+  bottom: 50px;
+  display: flex;
+  flex-direction: row; /* Chia 2 cột */
+  gap: 30px;
+  align-items: flex-start;
+  border: 1px solid lightgray;
+  border-radius: 20px;
+  color: white;
+  text-align: left;
+  z-index: 20 !important; 
+  pointer-events: auto;
+  overflow-y: auto;
+}
+
+/* --- THANH MENU BÊN TRÁI --- */
+.hologramMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 25%;
+  border-right: 1px solid lightgray;
+  padding-right: 20px;
+  flex-shrink: 0;
+}
+
+.tabBtn {
+  background: transparent;
+  color: #cbd5e1;
+  border: 1px solid transparent;
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.tabBtn:hover {
+  color: #fff;
+  background: rgba(0, 242, 254, 0.1);
+}
+
+/* Sáng đèn khi Tab active */
+.active {
+  color: #04b675 !important;
+  border-left: 3px solid #04b675 !important;
+  background: linear-gradient(90deg, rgba(0, 255, 163, 0.15) 0%, rgba(0, 0, 0, 0) 100%) !important;
+  font-weight: bold;
+}
+
+/* --- KHU VỰC NỘI DUNG BÊN PHẢI --- */
+.hologramContent {
+  width: 65%;
+  height: 100%;
+}
+
+.tabTitle {
+  margin: 0 0 10px 0;
+  font-size: 26px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #04b675;
+}
+
+.infoDivider {
+  height: 2px;
+  width: 50px;
+  background: #04b675;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px #04b675;
+}
+
+.dataList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dataList li {
+  font-size: 15px;
+  color: #e2e8f0;
+  margin-bottom: 15px;
+  line-height: 1.6;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+}
+
+.label {
+  color: #04b675;
+  font-weight: bold;
+  margin-right: 10px;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+/* Hiệu ứng fade in khi đổi tab */
+.fadeIn {
+  animation: tabBlurIn 0.4s ease-in-out forwards;
+}
+
+@keyframes tabBlurIn {
+  from { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* =========================================
+   RESPONSIVE MOBILE CHO TỪNG MODULE TAB
+   ========================================= */
+@media (max-width: 768px) {
+  .planetInfoPanel {
+    flex-direction: column; /* Xếp dọc trên điện thoại */
+    gap: 20px;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    width: 85%;
+    height: auto;
+    max-height: 75vh;
+    transform: translate(-50%, -50%);
+  }
+
+  .hologramMenu {
+    width: 100%;
+    flex-direction: row; /* Nút menu nằm ngang */
+    overflow-x: auto; /* Vuốt ngang menu nếu dài */
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+    padding-right: 0;
+    padding-bottom: 10px;
+  }
+
+  .tabBtn {
+    white-space: nowrap;
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  .active {
+    border-left: none !important;
+    border-bottom: 2px solid #00f2fe !important;
+    background: linear-gradient(0deg, rgba(0, 242, 254, 0.15) 0%, rgba(0, 0, 0, 0) 100%) !important;
+  }
+
+  .hologramContent {
+    width: 100%;
+  }
+
+  .tabTitle {
+    font-size: 20px;
+  }
+}

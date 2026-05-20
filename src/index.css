@@ -417,6 +417,39 @@ a, button, .planet-sphere, .preview-planet {
   z-index: 20 !important; 
 }
 
+.planet-page-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh; /* Phủ kín màn hình */
+  overflow: hidden; /* Cắt phần video bị thừa nếu có */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Biến video thành Background */
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Quan trọng nhất: Giúp video giãn đều, không bị méo tỉ lệ */
+  z-index: -2; /* Đẩy video ra tít phía sau */
+  object-position: 10% 90%;
+}
+
+/* Lớp phủ đen mờ (nếu video của ông sáng quá làm khó đọc chữ) */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Chỉnh 0.4 lên 0.6 nếu muốn tối hơn */
+  z-index: -1; 
+}
+
 /* --- 7. TỔNG HỢP KEYFRAMES (ANIMATION) --- */
 @keyframes flashAnim {
   0% { opacity: 0; }
@@ -557,5 +590,12 @@ a, button, .planet-sphere, .preview-planet {
     left: 0 !important;
     transform: scale(1) !important;  /* Không phóng to trên ĐT cho đỡ cấn */
     filter: brightness(0.5); /* Làm tối quả cầu đi để người ta tập trung đọc chữ */
+  }
+  .background-video {
+    object-fit: cover; /* Đảm bảo video lấp đầy màn hình mà không bị méo */
+    
+    /* MA THUẬT LÀ ĐÂY: Trục X (Trái/Phải) và Trục Y (Trên/Dưới) */
+    /* Mặc định đang là 'center center' (50% 50%) */
+    object-position: 48% 50%; 
   }
 }
