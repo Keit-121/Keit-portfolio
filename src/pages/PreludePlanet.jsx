@@ -1,45 +1,60 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaChevronLeft } from 'react-icons/fa';
+import { useSound } from '../context/SoundContext';
 import styles from '../css/Prelude.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faVolumeHigh, faVolumeXmark } from '@fortawesome/free-solid-svg-icons';
+
+function SoundToggle() {
+  const { toggleSound, isPlaying } = useSound();
+  return (
+    <button 
+      onClick={toggleSound} 
+      // Sửa lỗi: Gọi qua styles và dùng ngoặc vuông vì có dấu gạch ngang
+      className={`${styles['sound-toggle-btn']} ${isPlaying ? 'playing' : ''}`}
+      title={isPlaying ? "Tắt nhạc nền" : "Bật nhạc nền"}
+    >
+      <FontAwesomeIcon 
+        icon={isPlaying ? faVolumeHigh : faVolumeXmark} 
+        style={{ color: "white" }} 
+        // Sửa lỗi: Gọi class SVG qua styles
+        className={styles['sound-icon-svg']} 
+      />
+    </button>
+  );
+}
 
 export function PreludePlanet() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('info');
-  const audioRef = useRef(new Audio(`${import.meta.env.BASE_URL}PlanetBackgroundSoundTrack/PreludeBgSound.mp3`));
+  const { playNewTrack, stopMusic } = useSound()
 
   useEffect(() => {
-    const audio = audioRef.current;
-    audio.loop = true;
-    audio.volume = 0.05; // Tớ chỉnh lại một chút cho vừa tai
-
-    // Kiểm tra xem đã từng bật nhạc trước đó chưa (trong phiên làm việc này)
-    const hasMusicPlayed = sessionStorage.getItem('musicPlayed');
-
-    if (hasMusicPlayed === 'true') {
-      audio.play().catch(() => console.log("Chờ người dùng tương tác..."));
-    }
+    // Chỉ cần gọi dòng này, nhạc sẽ tự đổi
+    playNewTrack(`${import.meta.env.BASE_URL}PlanetBackgroundSoundTrack/PreludeBgSound.mp3`);
 
     return () => {
-      // Đừng pause nhạc ở đây nếu cậu muốn nhạc chạy liên tục khi chuyển trang!
-      // Chỉ pause nếu cậu muốn nhạc dừng hẳn khi thoát PreludePlanet.
+      stopMusic(); 
     };
+  }, [])
+
+  const handleFirstInteraction = () => {
+    audioRef.current.play();
+    sessionStorage.setItem('musicPlayed', 'true');
+    // Gỡ bỏ sự kiện sau khi đã bật nhạc để tránh chạy lại
+    document.removeEventListener('click', handleFirstInteraction);
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleFirstInteraction);
+    return () => document.removeEventListener('click', handleFirstInteraction);
   }, []);
 
-    const handleFirstInteraction = () => {
-      audioRef.current.play();
-      sessionStorage.setItem('musicPlayed', 'true');
-      // Gỡ bỏ sự kiện sau khi đã bật nhạc để tránh chạy lại
-      document.removeEventListener('click', handleFirstInteraction);
-    };
-
-    useEffect(() => {
-      document.addEventListener('click', handleFirstInteraction);
-      return () => document.removeEventListener('click', handleFirstInteraction);
-    }, []);
   return (
     <div className="planet-page-container">
       {/* 1. ĐÂY LÀ PHẦN VIDEO BACKGROUND */}
+      <SoundToggle />
       <video 
         autoPlay 
         loop 
@@ -133,11 +148,9 @@ export function PreludePlanet() {
             </ul>
           </div>
         )}
+        </div>
       </div>
-
     </div>
-    </div>
-    
   );
 }
 

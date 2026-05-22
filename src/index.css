@@ -4,7 +4,7 @@ body, html {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  cursor: url('/ufo.png'), auto;
+  /* cursor: url('/ufo.png'), auto; */
   position: fixed;
 }
 
@@ -449,6 +449,8 @@ a, button, .planet-sphere, .preview-planet {
   background-color: rgba(0, 0, 0, 0.4); /* Chỉnh 0.4 lên 0.6 nếu muốn tối hơn */
   z-index: -1; 
 }
+
+
 
 /* --- 7. TỔNG HỢP KEYFRAMES (ANIMATION) --- */
 @keyframes flashAnim {

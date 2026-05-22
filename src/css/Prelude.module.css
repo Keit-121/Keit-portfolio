@@ -102,6 +102,28 @@
   letter-spacing: 1px;
 }
 
+.sound-toggle-btn{
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: transparent !important; 
+  border: none;
+  outline: none;
+  font-size: 25px;
+}
+
+.sound-icon-svg {
+  font-size: 25px;
+  transition: transform 0.2s ease-in-out; /* Chỉ cho phép transform chuyển động mượt */
+  will-change: transform; /* Ép Card đồ họa (GPU) xử lý chống nhòe và bóng ma */
+}
+
+/* 3. KHI HOVER VÀO NÚT -> PHÓNG TO ICON */
+.sound-toggle-btn:hover .sound-icon-svg {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 10px #04b675) drop-shadow(0 0 40px #04b675);
+}
+
 /* Hiệu ứng fade in khi đổi tab */
 .fadeIn {
   animation: tabBlurIn 0.4s ease-in-out forwards;

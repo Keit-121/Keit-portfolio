@@ -7,10 +7,12 @@ import RhythmPlanet from './pages/RhythmPlanet';
 import CapsulePlanet from './pages/CapsulePlanet';
 import TastePlanet from './pages/TastePlanet';
 import LabPlanet from './pages/LabPlanet';
-// Nhớ import thêm các trang hành tinh khác khi ông tạo xong nhé!
+import { SoundProvider } from './context/SoundContext';
+import { useSound } from './context/SoundContext';
 
 function App() {
   return (
+    <SoundProvider>
     <Router>
       <Routes>
         {/* Trang chủ mặc định sẽ load file Home.jsx */}
@@ -25,6 +27,7 @@ function App() {
         <Route path="/lab" element={<LabPlanet />} />
       </Routes>
     </Router>
+    </SoundProvider>
   );
 }
 

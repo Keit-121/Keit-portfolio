@@ -1,0 +1,322 @@
+/* =========================================
+   1. NÚT TẮT/BẬT ÂM THANH
+   ========================================= */
+.sound-toggle-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: transparent !important; 
+  border: none;
+  outline: none;
+  font-size: 25px;
+  z-index: 100;
+  cursor: pointer;
+}
+
+.sound-icon-svg {
+  font-size: 25px;
+  transition: transform 0.2s ease-in-out;
+  will-change: transform;
+}
+
+.sound-toggle-btn:hover .sound-icon-svg {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 10px #ffffff) drop-shadow(0 0 40px #ffffff);
+}
+
+/* =========================================
+   2. BỐ CỤC TỔNG THỂ & NỀN CYBERPUNK
+   ========================================= */
+.arcade-page-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #050505;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* ÉP FONT MONOSPACE CHO CẢ TRANG */
+  font-family: 'Consolas', 'Courier New', monospace !important;
+}
+
+.dark-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+  z-index: 1;
+}
+
+/* =========================================
+   3. CẤU TRÚC THÙNG MÁY ARCADE
+   ========================================= */
+.arcade-cabinet {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  max-height: calc(100vh - 60px);
+  background: linear-gradient(to bottom, #1a1a24 0%, #0d0d14 100%);
+  border: 4px solid #333;
+  border-radius: 20px 20px 10px 10px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 20px rgba(255,255,255,0.05);
+}
+
+.arcade-marquee {
+  width: 100%;
+  padding: 15px 0;
+  background: #000;
+  border-bottom: 4px solid #222;
+  border-radius: 15px 15px 0 0;
+  text-align: center;
+}
+
+.glitch-title {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: normal;
+  letter-spacing: 5px;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.8), 0 0 20px rgba(0, 242, 254, 0.4);
+}
+
+/* =========================================
+   4. MÀN HÌNH CRT & HIỆU ỨNG
+   ========================================= */
+.arcade-screen-bezel {
+  width: 94%;
+  background: #050505;
+  padding: 12px;
+  margin: 15px 0;
+  border-radius: 10px;
+  border: 2px solid #222;
+  box-shadow: inset 0 0 20px rgba(0,0,0,1);
+}
+
+.arcade-screen {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: radial-gradient(circle, #0b1a20 0%, #020608 100%);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  box-shadow: inset 0 0 15px rgba(0, 242, 254, 0.2);
+}
+
+.scanlines {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+  background-size: 100% 4px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.98; }
+  100% { opacity: 1; }
+}
+
+/* =========================================
+   5. DANH SÁCH GAME CÓ THỂ CUỘN
+   ========================================= */
+.screen-content-list {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+  overflow-y: auto;
+  animation: flicker 0.2s infinite; 
+}
+
+/* Custom Scrollbar cho danh sách */
+.screen-content-list::-webkit-scrollbar {
+  width: 6px;
+}
+.screen-content-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 242, 254, 0.5);
+  border-radius: 3px;
+}
+.screen-content-list::-webkit-scrollbar-thumb:hover {
+  background: #00f2fe;
+}
+
+/* Các Nút Game (Links) trong màn hình */
+.cyber-link-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background-image: linear-gradient(rgba(10, 10, 15, 0.5), rgba(10, 10, 15, 0.5)), 
+                    linear-gradient(to right, #00f2fe 0%, transparent 100%);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  border: 1px solid transparent;
+  border-left-width: 3px;
+}
+
+.cyber-link-btn:hover {
+  transform: translateX(5px);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+}
+
+.link-btn-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.link-logo-box {
+  width: 40px; 
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+}
+
+.game-logo {
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover;
+}
+
+.text-content {
+  display: flex; 
+  flex-direction: column;
+}
+
+.btn-name {
+  font-size: 1.1rem; 
+  font-weight: bold;
+}
+
+.btn-desc {
+  font-size: 0.75rem; 
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* =========================================
+   6. BẢNG ĐIỀU KHIỂN (TƯỢNG TRƯNG)
+   ========================================= */
+.arcade-control-panel {
+  width: 100%;
+  height: 150px;
+  max-width: 450px; /* Ép bảng điều khiển nhỏ hơn thùng máy (500px) */
+  box-sizing: border-box; /* Quan trọng: Không cho padding làm tràn viền */
+  display: flex;
+  justify-content: space-between; /* Giãn cách joystick và nút sang 2 bên */
+  align-items: center;
+  padding-bottom: 50px;
+}
+
+/* --- JOYSTICK 3D --- */
+.joystick-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 120px;
+}
+
+.joystick-base {
+  position: absolute;
+  width: 100px; 
+  height: 100px;
+  background: radial-gradient(circle, #333 0%, #000 100%);
+  border-radius: 50%;
+  border: 4px solid #1a1a1a;
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.8), 0 5px 15px rgba(0,0,0,0.6);
+  bottom: 15px;
+}
+
+.joystick-shaft {
+  position: absolute;
+  width: 15px; 
+  height: 60px;
+  background: linear-gradient(90deg, #666 0%, #444 100%);
+  border-radius: 4px;
+  bottom: 50px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+}
+
+.joystick-ball {
+  position: absolute;
+  width: 40px; 
+  height: 40px;
+  background: radial-gradient(circle at 30% 30%, #ff2a2a 0%, #990000 100%);
+  border-radius: 50%;
+  top: 10px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.5), 0 0 15px rgba(255,0,0,0.2);
+}
+
+.joystick-ball::after {
+  content: '';
+  position: absolute;
+  top: 10px; 
+  left: 10px;
+  width: 25px; 
+  height: 15px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+}
+
+/* --- CỤM 6 NÚT BẤM (GRID) --- */
+.buttons-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.button-row {
+  display: flex;
+  gap: 15px;
+}
+
+/* Khung viền và mặt kính của nút */
+.arcade-round-btn {
+  position: relative;
+  width: 35px; 
+  height: 35px;
+  border-radius: 50%;
+  bottom: 10px;
+  border: 6px solid #111; 
+  box-shadow: 0 5px 0 #000, 0 8px 10px rgba(0,0,0,0.6);
+  overflow: hidden;
+  cursor: default; /* Không click được, chỉ trang trí */
+}
+
+.arcade-round-btn::before {
+  content: '';
+  position: absolute;
+  top: 20px; 
+  left: 10%;
+  width: 80%; 
+  height: 40%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%);
+  border-radius: 50%;
+}
+
+/* Màu sắc của 6 nút */
+.btn-red    { background: radial-gradient(circle at 50% 30%, #ff2a2a 0%, #990000 100%); }
+.btn-pink   { background: radial-gradient(circle at 50% 30%, #ff69b4 0%, #c1006a 100%); }
+.btn-yellow { background: radial-gradient(circle at 50% 30%, #ffea00 0%, #b3a400 100%); }
+.btn-green  { background: radial-gradient(circle at 50% 30%, #39ff14 0%, #008000 100%); }
+.btn-blue   { background: radial-gradient(circle at 50% 30%, #2a9df4 0%, #004d99 100%); }
+.btn-purple { background: radial-gradient(circle at 50% 30%, #9400d3 0%, #4b0082 100%); }
