@@ -4,7 +4,8 @@ import { FaChevronLeft } from 'react-icons/fa';
 import { useSound } from '../context/SoundContext';
 import styles from '../css/Prelude.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVolumeHigh, faVolumeXmark } from '@fortawesome/free-solid-svg-icons';
+import { faVolumeHigh, faVolumeXmark, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+
 
 function SoundToggle() {
   const { toggleSound, isPlaying } = useSound();
@@ -52,7 +53,7 @@ export function PreludePlanet() {
   }, []);
 
   return (
-    <div className="planet-page-container">
+    <div className="planet-page-container" style={{ fontFamily: "'Philosopher', serif" }}>
       {/* 1. ĐÂY LÀ PHẦN VIDEO BACKGROUND */}
       <SoundToggle />
       <video 
@@ -67,18 +68,17 @@ export function PreludePlanet() {
 
       {/* Lớp phủ mờ (tùy chọn) giúp chữ nổi bật hơn trên nền video */}
       <div className="video-overlay"></div>
-      <div className="profile-header">
-        <img
-          src={`${import.meta.env.BASE_URL}Avatar2.jpg`}
-          alt="Avatar Vương Tuấn Kiệt"
-          className="profile-avatar"
-        />
-        
-        <div className="profile-info">
-          <h1>Keit</h1>
-          <p>Porfolio Website</p>
-        </div>
-      </div>
+      <div className={styles['video-overlay']}></div>
+            <div className={styles['profile-header']}>
+              <button 
+                className={styles['back-btn']} 
+                onClick={() => navigate('/')} 
+                title="Return to Keit Universe"
+              >
+                <FontAwesomeIcon icon={faChevronLeft} />
+                <span>Keit Universe</span>
+              </button>
+            </div>
       <div className={styles.planetInfoPanel} onClick={(e) => e.stopPropagation()}>
       
       {/* Thanh Menu dọc chứa các nút bấm */}
@@ -110,12 +110,12 @@ export function PreludePlanet() {
             <h2 className={styles.tabTitle}>Basic Info</h2>
             <div className={styles.infoDivider}></div>
             <ul className={styles.dataList}>
-              <li><span className={styles.label}>FullName:</span> Vương Tuấn Kiệt</li>
-              <li><span className={styles.label}>Birthday:</span> 12/11/2007</li>
+              <li><span className={styles.label}>FullName:</span> Vuong Tuan Kiet</li>
+              <li><span className={styles.label}>Birthday:</span> 12 NOV 2007</li>
               <li><span className={styles.label}>Gender:</span> Male</li>
-              <li><span className={styles.label}>Siblings:</span> 1 Older brother</li>
-              <li><span className={styles.label}>Location:</span> Hà Nội, Việt Nam</li>
-              <li><span className={styles.label}>Role:</span> Full-stack Web Developer</li>
+              <li><span className={styles.label}>Siblings:</span> One older brother</li>
+              <li><span className={styles.label}>Location:</span> Hanoi, Vietnam</li>
+              <li><span className={styles.label}>Role:</span> Full-stack Developer</li>
             </ul>
           </div>
         )}
@@ -141,7 +141,7 @@ export function PreludePlanet() {
             <h2 className={styles.tabTitle}>Personality Matrix</h2>
             <div className={styles.infoDivider}></div>
             <ul className={styles.dataList}>
-              <li><span className={styles.label}>Celestial::</span>Sun: Scorpio | Moon:  </li>
+              <li><span className={styles.label}>Celestial:</span>Sun: Scorpio | Moon: Sagittarius </li>
               <li><span className={styles.label}>MBTI:</span>INFJ</li>
               <li><span className={styles.label}>Character:</span>Gentle, Reserved , Sentimental, Introspective, Highly Sensitive</li>
               <li><span className={styles.label}>RECHARGE:</span> Solitude, Deep rest, Cinematic immersion</li>

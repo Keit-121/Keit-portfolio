@@ -1,0 +1,99 @@
+.profile-header {
+  position: absolute;
+  top: 30px; 
+  left: 40px;
+  z-index: 50;
+}
+
+.back-btn {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  
+  /* Đã thay đổi phần kích thước và bo góc */
+  height: 45px; 
+  padding: 0 22px; /* Thêm padding 2 bên để lấy chỗ chứa chữ */
+  border-radius: 25px; /* Bo góc tròn trịa kiểu viên thuốc */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px; /* Khoảng cách siêu chuẩn giữa icon và chữ */
+  
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: 500; /* Làm nét chữ đậm lên một xíu */
+  backdrop-filter: blur(10px);
+  z-index: 50;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-5px); 
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.sound-toggle-btn{
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: transparent !important; 
+  border: none;
+  outline: none;
+  font-size: 25px;
+}
+
+.sound-icon-svg {
+  font-size: 25px;
+  transition: transform 0.2s ease-in-out; /* Chỉ cho phép transform chuyển động mượt */
+  will-change: transform; /* Ép Card đồ họa (GPU) xử lý chống nhòe và bóng ma */
+}
+
+/* Container chứa các nút dàn ngang */
+.git-links-wrapper {
+  display: flex;
+  justify-content: center; /* Đổi thành flex-start hoặc flex-end nếu muốn căn lề trái/phải */
+  align-items: center;
+  gap: 35px; /* Khoảng cách giữa các nút */
+  padding: 20px;
+  
+  /* Nếu bạn đang dùng absolute positioning để đặt đè lên ảnh nền */
+  bottom: 10%; /* Đặt ở nửa dưới màn hình để không che mất phần lõi ở giữa */
+  width: 100%;
+  z-index: 10;
+  flex-direction: column
+}
+
+/* Style chung cho các nút */
+.git-btn {
+  padding: 10px 24px;
+  background-color: rgba(20, 20, 20, 0.7); /* Nền đen trong suốt */
+  color: #e0e0e0;
+  text-decoration: none;
+  font-family: 'Courier New', Courier, monospace; /* Font chữ dạng code cho hợp vibe */
+  font-size: 18px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+  backdrop-filter: blur(4px); /* Làm mờ nhẹ background phía sau nút */
+  width: 300px; /* Đặt chiều rộng cố định để các nút đồng đều */
+  display: flex;
+  align-items: center; /* Đảm bảo icon và chữ nằm thẳng hàng ngang với nhau */
+  justify-content: flex-start; 
+  gap: 10px;
+}
+
+.git-btn svg {
+  font-size: 24px; /* CHỈNH KÍCH THƯỚC: Tăng giảm số này để icon to/nhỏ theo ý muốn (mặc định thường bằng font chữ) */
+}
+
+/* Hiệu ứng khi di chuột vào */
+.git-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-color: #aaa;
+  transform: translateY(-2px); /* Nảy lên nhẹ một chút */
+}
+

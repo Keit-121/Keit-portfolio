@@ -5,7 +5,6 @@ import PassionPlanet from './pages/PassionPlanet';
 import ArcadePlanet from './pages/ArcadePlanet';
 import RhythmPlanet from './pages/RhythmPlanet';
 import CapsulePlanet from './pages/CapsulePlanet';
-import TastePlanet from './pages/TastePlanet';
 import LabPlanet from './pages/LabPlanet';
 import { SoundProvider } from './context/SoundContext';
 import { useSound } from './context/SoundContext';
@@ -23,7 +22,6 @@ function App() {
         <Route path="/arcade" element={<ArcadePlanet />} />
         <Route path="/rhythm" element={<RhythmPlanet />} />
         <Route path="/capsule" element={<CapsulePlanet />} />
-        <Route path="/taste" element={<TastePlanet />} />
         <Route path="/lab" element={<LabPlanet />} />
       </Routes>
     </Router>

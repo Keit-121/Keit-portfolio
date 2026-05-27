@@ -1,6 +1,40 @@
-/* =========================================
-   1. NÚT TẮT/BẬT ÂM THANH
-   ========================================= */
+.profile-header {
+  position: absolute;
+  top: 30px; 
+  left: 40px;
+  z-index: 50;
+}
+
+.back-btn {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  
+  /* Đã thay đổi phần kích thước và bo góc */
+  height: 45px; 
+  padding: 0 22px; /* Thêm padding 2 bên để lấy chỗ chứa chữ */
+  border-radius: 25px; /* Bo góc tròn trịa kiểu viên thuốc */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px; /* Khoảng cách siêu chuẩn giữa icon và chữ */
+  
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: 500; /* Làm nét chữ đậm lên một xíu */
+  backdrop-filter: blur(10px);
+  z-index: 50;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-5px); 
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
 .sound-toggle-btn {
   position: fixed;
   bottom: 30px;
@@ -58,7 +92,7 @@
   align-items: center;
   width: 500px;
   max-height: calc(100vh - 60px);
-  background: linear-gradient(to bottom, #1a1a24 0%, #0d0d14 100%);
+  background: linear-gradient(to bottom, #44017f 0%, #cd03d499 100%);
   border: 4px solid #333;
   border-radius: 20px 20px 10px 10px;
   box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 20px rgba(255,255,255,0.05);
@@ -67,7 +101,7 @@
 .arcade-marquee {
   width: 100%;
   padding: 15px 0;
-  background: #000;
+  background: #4c017a9e;
   border-bottom: 4px solid #222;
   border-radius: 15px 15px 0 0;
   text-align: center;
@@ -80,6 +114,7 @@
   letter-spacing: 5px;
   margin: 0;
   text-shadow: 0 0 10px rgba(0, 242, 254, 0.8), 0 0 20px rgba(0, 242, 254, 0.4);
+  font-family: 'Press Start 2P';
 }
 
 /* =========================================
@@ -199,6 +234,7 @@
 .text-content {
   display: flex; 
   flex-direction: column;
+  font-family: 'Press Start 2P', cursive;
 }
 
 .btn-name {
@@ -320,3 +356,51 @@
 .btn-green  { background: radial-gradient(circle at 50% 30%, #39ff14 0%, #008000 100%); }
 .btn-blue   { background: radial-gradient(circle at 50% 30%, #2a9df4 0%, #004d99 100%); }
 .btn-purple { background: radial-gradient(circle at 50% 30%, #9400d3 0%, #4b0082 100%); }
+
+/* =========================================
+   7. RESPONSIVE CHO ĐIỆN THOẠI (THU NHỎ MÁY ARCADE)
+   ========================================= */
+@media (max-width: 768px) {
+  .arcade-cabinet {
+    /* Ép máy game co lại đúng bằng chiều rộng màn hình trừ đi 20px (để mỗi bên lề 10px) */
+    transform: scale(calc((100vw - 20px) / 500)); 
+    transform-origin: center center; 
+    margin-top: 40px; /* Đẩy nhẹ xuống để không dính nút Back */
+    margin: 10px;
+  }
+
+  /* --- CẮT NGẮN PHẦN THÂN CHỨA NÚT ĐIỀU KHIỂN --- */
+  .arcade-control-panel {
+    height: 120px; /* Giảm chiều cao tổng thể của dàn nút */
+    padding-bottom: 10px; /* Xóa khoảng trống màu tím thừa thãi bên dưới */
+    width: 90%; /* Giảm chiều rộng để vừa vặn với thân máy đã làm ngắn */
+    gap: 15px !important; /* Giảm khoảng cách giữa joystick và nút bấm lại một xíu */
+  }
+
+  /* Bóp nhỏ Joystick và 6 nút bấm cơ lại một xíu để vừa vặn với thân máy đã làm ngắn */
+  .joystick-wrapper {
+    transform: scale(0.85);
+    transform-origin: bottom left;
+  }
+  .buttons-grid {
+    transform: scale(0.85);
+    transform-origin: center right;
+  }
+
+  /* --- THU GỌN CÁC NÚT UI KHÁC --- */
+  .profile-header {
+    top: 20px; 
+    left: 20px;
+  }
+  .back-btn {
+    height: 40px;
+    padding: 0 15px;
+    font-size: 0.85rem;
+  }
+
+  .sound-toggle-btn {
+    bottom: 20px;
+    right: 20px;
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,413 @@
+/* =========================================
+   1. BỐ CỤC TỔNG THỂ & NỀN
+   ========================================= */
+.rhythm-page-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+}
+
+.background-video {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%);
+  z-index: 1;
+}
+
+/* =========================================
+   2. HEADER (Thông tin cá nhân)
+   ========================================= */
+.profile-header {
+  position: absolute;
+  top: 30px; 
+  left: 40px;
+  z-index: 50;
+}
+
+.back-btn {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  
+  /* Đã thay đổi phần kích thước và bo góc */
+  height: 45px; 
+  padding: 0 22px; /* Thêm padding 2 bên để lấy chỗ chứa chữ */
+  border-radius: 25px; /* Bo góc tròn trịa kiểu viên thuốc */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px; /* Khoảng cách siêu chuẩn giữa icon và chữ */
+  
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: 500; /* Làm nét chữ đậm lên một xíu */
+  backdrop-filter: blur(10px);
+  z-index: 50;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-5px); 
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* =========================================
+   3. KHU VỰC NỘI DUNG CHÍNH (Cuộn dọc)
+   ========================================= */
+.main-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  padding: 70px 50px 100px 50px; /* Chừa chỗ cho Nút Back ở trên và Player ở dưới */
+  
+  /* KHÓA CUỘN DỌC */
+  overflow: hidden; 
+  
+  /* Dùng Flexbox để ép toàn bộ nội dung nằm chính giữa màn hình */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.section {
+  margin-bottom: 20px; 
+}
+
+.section-title {
+  font-size: 1.5rem; /* Thu nhỏ font chữ tiêu đề 1 xíu */
+  margin-bottom: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.horizontal-scroll {
+  display: flex;
+  gap: 70px; /* Rút gọn khoảng cách giữa các thẻ */
+  overflow-x: auto;
+  padding-bottom: 15px;
+  padding-top: 10px;
+  scrollbar-width: none; 
+}
+.horizontal-scroll::-webkit-scrollbar { display: none; }
+
+/* --- CARD NGHỆ SĨ (Đã thu nhỏ từ 120px xuống 100px) --- */
+.artist-card {
+  display: flex; flex-direction: column; align-items: center;
+  min-width: 100px; 
+  cursor: pointer; transition: transform 0.3s ease;
+}
+.artist-card:hover { transform: translateY(-10px); }
+
+.artist-image-box {
+  width: 100px; height: 100px; 
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  margin-bottom: 10px;
+}
+.artist-image-box img { width: 100%; height: 100%; object-fit: cover; }
+.artist-card p { margin: 0; font-weight: 500; font-size: 0.9rem; }
+
+/* --- CARD BÀI HÁT & ALBUM (Đã thu nhỏ từ 150px xuống 130px) --- */
+.song-card {
+  min-width: 130px; 
+  cursor: pointer; transition: transform 0.3s ease;
+}
+.song-card:hover { transform: translateY(-10px); }
+.song-card.active .song-title { color: #1db954; } 
+
+.song-image-box {
+  position: relative;
+  width: 130px; height: 130px; 
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  margin-bottom: 10px;
+}
+.song-image-box img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Hiệu ứng xếp chồng cho phần tử Album */
+.song-card.is-album .song-image-box::before {
+  content: ''; position: absolute;
+  top: -8px; left: 5%; width: 90%; height: 100%;
+  background: rgba(255,255,255,0.2);
+  border-radius: 8px; z-index: -1;
+}
+.song-card.is-album .song-image-box::after {
+  content: ''; position: absolute;
+  top: -16px; left: 10%; width: 80%; height: 100%;
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px; z-index: -2;
+}
+
+.album-badge {
+  position: absolute; bottom: 8px; right: 8px;
+  background: rgba(0,0,0,0.7);
+  padding: 4px 8px; border-radius: 4px;
+  font-size: 0.7rem; font-weight: bold;
+}
+
+.song-title { margin: 0 0 5px 0; font-weight: bold; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.song-artist { margin: 0; font-size: 0.8rem; color: #aaa; }
+
+/* =========================================
+   4. THANH ĐIỀU KHIỂN AUDIO (BOTTOM PLAYER)
+   ========================================= */
+.player-bar {
+  position: fixed;
+  bottom: 0; left: 0; width: 100%; height: 90px;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  box-sizing: border-box; /* QUAN TRỌNG: Ngăn thanh player bị tràn ra mép phải */
+  z-index: 100;
+}
+
+/* --- Left: Track Info --- */
+.player-track-info {
+  width: 320px; /* Nới rộng để chứa cả đĩa than */
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+/* --- Center: Vinyl & Controls --- */
+.player-center {
+  flex: 1; /* Chiếm toàn bộ khoảng trống ở giữa */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Cụm Nút Điều Khiển (Được căn khít dưới đĩa than) */
+.control-buttons {
+  display: flex; 
+  align-items: center; 
+  gap: 20px;
+}
+
+.ctrl-btn {
+  background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; transition: color 0.2s;
+}
+.ctrl-btn:hover {
+    transform: scale(1.1);
+    color: #1db954; 
+}
+
+.play-btn {
+  width: 45px; height: 45px;
+  border-radius: 50%;
+  border: none;
+  background: #fff; color: #000;
+  font-size: 1.1rem;
+  display: flex; justify-content: center; align-items: center;
+  cursor: pointer; transition: transform 0.2s;
+}
+.play-btn:hover { 
+    transform: scale(1.1);
+    background-color: #1db954;
+}
+/* Đĩa Than (Nổi lên trên) */
+.vinyl-record {
+  position: relative;
+  margin-top: -5px; 
+  margin-left: -25px; 
+  width: 70px; 
+  height: 70px;
+  background: #111; /* Màu đen làm viền mỏng ở ngoài */
+  border-radius: 50%;
+  border: 1px solid #222;
+  display: flex; justify-content: center; align-items: center;
+  flex-shrink: 0;
+  z-index: 11;
+}
+
+.vinyl-label {
+  width: 66px; 
+  height: 66px; 
+  border-radius: 50%; 
+  overflow: hidden; 
+  z-index: 2;
+}
+
+.vinyl-label img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+.vinyl-hole {
+  position: absolute;
+  width: 12px; height: 12px;
+  background: #000; 
+  border-radius: 50%; 
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 3;
+}
+
+/* Animation quay đĩa than */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.vinyl-record.spinning {
+  animation: spin 4s linear infinite;
+}
+
+/* --- Right: Volume --- */
+.player-volume {
+  width: 250px;
+  display: flex; justify-content: flex-end; align-items: center; gap: 15px;
+}
+
+.vol-icon:hover { 
+    color: #fff; 
+} /* Hover phát sáng lên */
+
+.volume-slider {
+  width: 100px;
+  accent-color: #fff;
+  cursor: pointer;
+}
+
+.artist-card {
+  text-decoration: none; /* Xóa gạch chân */
+  color: inherit; /* Giữ nguyên màu trắng */
+  /* Các thuộc tính cũ giữ nguyên... */
+  display: flex; flex-direction: column; align-items: center;
+  min-width: 120px; cursor: pointer; transition: transform 0.3s ease;
+}
+
+.player-track-info {
+  width: 300px; /* Nới rộng một chút để chứa chữ */
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Tạo khoảng cách an toàn giữa đĩa than và chữ */
+}
+
+/* Cụm chữ (Tên bài & Tên nghệ sĩ) */
+.track-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden; 
+  white-space: nowrap; /* Chống rớt dòng nếu tên bài quá dài */
+}
+
+.track-title {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.track-artist {
+  margin: 0;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5); /* Làm mờ tên nghệ sĩ đi 50% */
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  /* --- Thu gọn Nút Back --- */
+  .profile-header {
+    top: 20px; 
+    left: 20px;
+  }
+  .back-btn {
+    height: 40px;
+    padding: 0 15px;
+    font-size: 0.85rem;
+  }
+
+  /* --- Căn lề lại phần danh sách nhạc --- */
+  .main-content {
+    padding: 70px 20px 100px 20px; /* Giảm padding hai bên xuống 20px */
+  }
+  .horizontal-scroll {
+    gap: 20px; /* Thu hẹp khoảng cách giữa các thẻ để lướt dễ hơn */
+  }
+
+  /* --- SỬA LỖI THANH PLAYER BỊ TRÀN --- */
+  .player-bar {
+    padding: 0 15px; /* Giảm lề 2 bên của thanh Player */
+    height: 80px; /* Thu gọn chiều cao một chút */
+  }
+
+  /* 1. Phần Thông tin bài hát (Bên trái) */
+  .player-track-info {
+    width: auto; 
+    flex: 1; /* Tự động co giãn chiếm phần trống */
+    gap: 10px; /* Ép chữ và đĩa than sát lại gần nhau */
+    overflow: hidden; /* Cực kỳ quan trọng để chữ không đẩy các nút văng ra ngoài */
+  }
+
+  /* Thu nhỏ đĩa than và reset margin */
+  .vinyl-record {
+    width: 45px; 
+    height: 45px;
+    margin-top: 0;
+    margin-left: 0;
+  }
+  .vinyl-label {
+    width: 41px; 
+    height: 41px;
+  }
+
+  /* Ép chữ nếu dài quá sẽ biến thành dấu ... */
+  .track-text {
+    width: calc(100% - 55px); /* Tính toán không gian còn lại trừ đi đĩa than */
+  }
+  .track-title {
+    font-size: 0.9rem;
+  }
+  .track-artist {
+    font-size: 0.75rem;
+  }
+
+  /* 2. Phần Nút bấm (Ở giữa) */
+  .player-center {
+    flex: none; /* Không cho phép phần này giãn ra */
+  }
+  .control-buttons {
+    gap: 12px; /* Ép các nút sát lại nhau */
+  }
+  .ctrl-btn {
+    font-size: 1rem; /* Thu nhỏ nút Next/Prev */
+  }
+  .play-btn {
+    width: 35px; 
+    height: 35px;
+    font-size: 0.9rem; /* Thu nhỏ nút Play */
+  }
+
+  /* 3. Phần Âm lượng (Bên phải) - ẨN ĐI TRÊN MOBILE */
+  .player-volume {
+    display: none; /* Điện thoại xài phím cứng, không cần cục này chiếm diện tích */
+  }
+}
+

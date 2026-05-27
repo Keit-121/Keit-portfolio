@@ -1,3 +1,40 @@
+.profile-header {
+  position: absolute;
+  top: 30px; 
+  left: 40px;
+  z-index: 50;
+}
+
+.back-btn {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  
+  /* Đã thay đổi phần kích thước và bo góc */
+  height: 45px; 
+  padding: 0 22px; /* Thêm padding 2 bên để lấy chỗ chứa chữ */
+  border-radius: 25px; /* Bo góc tròn trịa kiểu viên thuốc */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px; /* Khoảng cách siêu chuẩn giữa icon và chữ */
+  
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: 500; /* Làm nét chữ đậm lên một xíu */
+  backdrop-filter: blur(10px);
+  z-index: 50;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-5px); 
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
 /* Bảng panel gốc - kế thừa form dáng kính mờ cũ của cậu */
 .planetInfoPanel {
   position: fixed;
@@ -142,12 +179,12 @@
     flex-direction: column; /* Xếp dọc trên điện thoại */
     gap: 20px;
     top: 50%;
-    left: 50%;
-    right: auto;
-    width: 85%;
-    height: auto;
-    max-height: 75vh;
+    left: 50% !important;
+    right: 50% !important;
+    width: 75vw;
+    height: 55vh;
     transform: translate(-50%, -50%);
+    margin-right: 5px;
   }
 
   .hologramMenu {
@@ -158,6 +195,7 @@
     border-bottom: 1px solid rgba(0, 242, 254, 0.2);
     padding-right: 0;
     padding-bottom: 10px;
+    scrollbar-width: none;
   }
 
   .tabBtn {

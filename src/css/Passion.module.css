@@ -1,3 +1,40 @@
+.profile-header {
+  position: absolute;
+  top: 30px; 
+  left: 40px;
+  z-index: 50;
+}
+
+.back-btn {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  
+  /* Đã thay đổi phần kích thước và bo góc */
+  height: 45px; 
+  padding: 0 22px; /* Thêm padding 2 bên để lấy chỗ chứa chữ */
+  border-radius: 25px; /* Bo góc tròn trịa kiểu viên thuốc */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px; /* Khoảng cách siêu chuẩn giữa icon và chữ */
+  
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: 500; /* Làm nét chữ đậm lên một xíu */
+  backdrop-filter: blur(10px);
+  z-index: 50;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-5px); 
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
 .sound-toggle-btn{
   position: fixed;
   bottom: 30px;
@@ -83,7 +120,6 @@
 
 .star-label {
   fill: #fff;
-  font-family: 'Arial', sans-serif;
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 1px;
@@ -91,6 +127,7 @@
   transition: opacity 0.3s ease;
   pointer-events: none; /* Tránh click nhầm vào chữ */
   filter: drop-shadow(0 0 8px #ff00ff); /* Viền sáng hồng neon */
+  font-family: 'Cinzel Decorative', serif;
 }
 
 /* KHI HOVER VÀO CHẤM TRÒN */
@@ -109,5 +146,55 @@
 /* Hiện chữ khi active */
 .interactive-group.active .star-label {
   opacity: 1;
+}
+
+.instruction-text {
+  position: absolute;
+  top: 10%; /* Nằm ở khoảng 15% tính từ trên xuống */
+  left: 50%;
+  transform: translateX(-50%); /* Căn giữa tuyệt đối */
+  z-index: 90; /* Phải thấp hơn z-index của chòm sao (100) để không che mất sao */
+  text-align: center;
+  pointer-events: none; /* Không cản trở việc click chuột phía sau nó */
+  font-family: 'Cinzel Decorative', serif;
+}
+
+.instruction-text p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 10px 20px;
+  border-radius: 30px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+
+@media (max-width: 768px) {
+  .constellation-wrapper {
+    /* Thu nhỏ toàn bộ bản đồ còn 70% để lọt thỏm vào màn hình ĐT (500px * 0.7 = 350px) */
+    --base-scale: 0.7; 
+    /* Giảm nhẹ độ zoom để khi bấm vào sao không bị phóng to quá mức tràn màn hình */
+    --zoom-scale: 1.6; 
+  }
+
+  /* Kéo nút Back gọn lại một chút trên màn hình nhỏ */
+  .profile-header {
+    top: 20px;
+    left: 20px;
+  }
+
+  .instruction-text {
+    top: 12%; /* Đẩy lên cao hơn một chút cho đỡ chật */
+    width: 90%; /* Không để chữ tràn viền trên màn hình nhỏ */
+  }
+
+  .instruction-text p {
+    font-size: 1.2rem; /* Thu nhỏ chữ lại */
+    padding: 15px 20px;
+    letter-spacing: 1px;
+  }
 }
 

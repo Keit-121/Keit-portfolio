@@ -1,0 +1,233 @@
+.profile-header {
+  position: absolute;
+  top: 30px; 
+  left: 40px;
+  z-index: 50;
+}
+
+.back-btn {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  
+  /* Đã thay đổi phần kích thước và bo góc */
+  height: 45px; 
+  padding: 0 22px; /* Thêm padding 2 bên để lấy chỗ chứa chữ */
+  border-radius: 25px; /* Bo góc tròn trịa kiểu viên thuốc */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px; /* Khoảng cách siêu chuẩn giữa icon và chữ */
+  
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: 500; /* Làm nét chữ đậm lên một xíu */
+  backdrop-filter: blur(10px);
+  z-index: 50;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-5px); 
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.sound-toggle-btn{
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: transparent !important; 
+  border: none;
+  outline: none;
+  font-size: 25px;
+}
+
+.sound-icon-svg {
+  font-size: 25px;
+  transition: transform 0.2s ease-in-out; /* Chỉ cho phép transform chuyển động mượt */
+  will-change: transform; /* Ép Card đồ họa (GPU) xử lý chống nhòe và bóng ma */
+}
+
+/* 3. KHI HOVER VÀO NÚT -> PHÓNG TO ICON */
+.sound-toggle-btn:hover .sound-icon-svg {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 10px #04b675) drop-shadow(0 0 40px #04b675);
+}
+
+/* =========================================
+   1. BỐ CỤC TỔNG THỂ & NỀN
+   ========================================= */
+.capsule-planet-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  /* Thêm file ảnh nền cảnh thiên nhiên đẹp cho Capsule Planet */
+  background: url('/PlanetBackground/CapsuleBg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Lớp phủ đen mờ cho nền video/ảnh (nếu nền quá sáng) */
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+  z-index: 1;
+}
+
+/* Header & Footer (Giữ nguyên style từ Portfolio, chỉ cần import chung) */
+/* Cậu nhớ import style header/footer từ file gốc hoặc shared style nhé */
+
+/* =========================================
+   2. KHU VỰC NỘI DUNG CHÍNH (CUỐN PHIM)
+   ========================================= */
+.main-content {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 800px;
+  height: 100vh;
+  font-family: 'Caveat', cursive; 
+}
+
+.planet-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin: 0 0 5px 0;
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.6), 0 0 20px rgba(0, 242, 254, 0.4);
+}
+
+.planet-subtitle {
+  font-size: 2rem;
+  color: #cbd5e1;
+  margin: 0 0 10px 0;
+  font-weight: 500;
+
+}
+
+/* --- Cụm điều hướng và khung phim --- */
+.memory-scroller {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: opacity 0.3s, transform 0.2s;
+  z-index: 10;
+}
+.nav-btn:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
+/* --- KHUNG PHIM / ẢNH KỶ NIỆM (Memory Frame) --- */
+.memory-frame {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(255, 255, 255, 0.05);
+  width: 100%;
+  max-width: 600px;
+}
+
+/* --- Khung ảnh chữ nhật --- */
+.photo-frame {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  /* Tỷ lệ ảnh chữ nhật (ví dụ 4:3) - Điều chỉnh nếu muốn 16:9 (56.25%) */
+  padding-bottom: 75%; 
+  overflow: hidden;
+  border-radius: 10px;
+  border: 4px solid #fff; /* Viền trắng như một bức ảnh cũ */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 5px 15px rgba(0,0,0,0.5);
+  cursor: pointer; /* Cho biết có thể click/vuốt để chuyển ảnh */
+}
+
+.photo-frame img {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+
+  /* Đổi từ cover sang contain */
+  object-fit: cover; /* Giữ nguyên tỷ lệ ảnh, có thể cắt nếu cần */
+  object-position: center 45%; /* Giữ ảnh ở trung tâm khung */
+  }
+
+/* --- NGÀY/THÁNG/NĂM TRÊN ẢNH --- */
+.date-overlay {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 5px 12px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #fff;
+  /* ÉP FONT SERIF (CÓ CHÂN) CHO CỔ ĐIỂN */
+  font-family: 'Times New Roman', Times, serif; 
+  letter-spacing: 2px;
+  font-weight: 700;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* --- DÒNG TEXT MÔ TẢ NỘI DUNG Ở DƯỚI ẢNH --- */
+.caption-area {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 15px 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.caption-text {
+  font-size: 1.6rem;
+  color: #f1f5f9;
+  font-family: 'Caveat', cursive; /* Font cursive dễ đọc */
+  line-height: 1.6;
+  margin: 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* =========================================
+   3. RESPONSIVE CHO ĐIỆN THOẠI
+   ========================================= */
+@media (max-width: 768px) {
+  .planet-title { font-size: 2.7rem; letter-spacing: 3px; }
+  .planet-subtitle { font-size: 2rem; }
+  
+  .memory-scroller { gap: 10px; }
+  .nav-btn { font-size: 1.5rem; }
+  
+  .photo-frame { border-width: 3px; }
+  .date-overlay { font-size: 0.8rem; padding: 4px 8px; }
+  .caption-text { font-size: 1.2rem; line-height: 1.5; }
+}

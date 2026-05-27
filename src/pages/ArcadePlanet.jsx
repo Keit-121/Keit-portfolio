@@ -4,7 +4,7 @@ import { FaChevronLeft } from 'react-icons/fa';
 import { useSound } from '../context/SoundContext';
 import styles from '../css/Arcade.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVolumeHigh, faVolumeXmark } from '@fortawesome/free-solid-svg-icons';
+import { faVolumeHigh, faVolumeXmark, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 function SoundToggle() {
   const { toggleSound, isPlaying } = useSound();
@@ -63,6 +63,17 @@ const gameLinks = [
 
 export function ArcadePlanet() {
   const navigate = useNavigate();
+  const { playNewTrack, stopMusic } = useSound();
+      const [activeStar, setActiveStar] = useState(null);
+    
+      useEffect(() => {
+        playNewTrack(`${import.meta.env.BASE_URL}PlanetBackgroundSoundTrack/ArcadeBgSound.mp3`);
+    
+        return () => {
+          stopMusic();
+        };
+      }, [])
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Hàm lùi game (nút Lên / Trái)
@@ -92,18 +103,16 @@ export function ArcadePlanet() {
 
       {/* Lớp phủ mờ (tùy chọn) giúp chữ nổi bật hơn trên nền video */}
       <div className="video-overlay"></div>
-      <div className="profile-header">
-        <img
-          src={`${import.meta.env.BASE_URL}Avatar2.jpg`}
-          alt="Avatar Vương Tuấn Kiệt"
-          className="profile-avatar"
-        />
-        
-        <div className="profile-info">
-          <h1>Keit</h1>
-          <p>Porfolio Website</p>
-        </div>
-      </div>
+       <div className={styles['profile-header']}>
+              <button 
+                className={styles['back-btn']} 
+                onClick={() => navigate('/')} 
+                title="Return to Keit Universe"
+              >
+                <FontAwesomeIcon icon={faChevronLeft} />
+                <span>Keit Universe</span>
+              </button>
+            </div>
       {/* --- THÙNG MÁY ARCADE --- */}
       <div className={styles['arcade-cabinet']}>
         
