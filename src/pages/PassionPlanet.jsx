@@ -72,13 +72,14 @@ export function PassionPlanet() {
     }
   };
 
-  // 2. Toán học bù trừ tọa độ chuẩn cho PC và Mobile
+  // 2. Toán học bù trừ tọa độ chuẩn cho PC và Mobile (Đã tối ưu lại theo kích thước chuẩn)
   const currentScale = activeStar 
     ? (isMobile ? 1.6 : 2.5) 
     : (isMobile ? 0.75 : 1);
 
-  const centerX = isMobile ? 250 : 245;
-  const centerY = isMobile ? 300 : 260;
+  // Lấy tâm bản đồ 500x600 làm gốc
+  const centerX = 250; 
+  const centerY = 300; 
 
   const targetX = activeStar ? (centerX - starData[activeStar].x) : 0;
   const targetY = activeStar ? (centerY - starData[activeStar].y) : 0;
