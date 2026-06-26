@@ -10,20 +10,19 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;
   
-  /* Đã thay đổi phần kích thước và bo góc */
   height: 45px; 
-  padding: 0 22px; /* Thêm padding 2 bên để lấy chỗ chứa chữ */
-  border-radius: 25px; /* Bo góc tròn trịa kiểu viên thuốc */
+  padding: 0 22px; 
+  border-radius: 25px; 
   
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px; /* Khoảng cách siêu chuẩn giữa icon và chữ */
+  gap: 12px; 
   
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 1rem;
-  font-weight: 500; /* Làm nét chữ đậm lên một xíu */
+  font-weight: 500; 
   backdrop-filter: blur(10px);
   z-index: 50;
   font-family: 'Space Grotesk', sans-serif;
@@ -47,11 +46,10 @@
 
 .sound-icon-svg {
   font-size: 25px;
-  transition: transform 0.2s ease-in-out; /* Chỉ cho phép transform chuyển động mượt */
-  will-change: transform; /* Ép Card đồ họa (GPU) xử lý chống nhòe và bóng ma */
+  transition: transform 0.2s ease-in-out; 
+  will-change: transform; 
 }
 
-/* 3. KHI HOVER VÀO NÚT -> PHÓNG TO ICON */
 .sound-toggle-btn:hover .sound-icon-svg {
   transform: scale(1.15);
   filter: drop-shadow(0 0 10px #fa01d5) drop-shadow(0 0 40px #fa01d5);
@@ -64,15 +62,15 @@
   position: absolute;
   top: 50%; 
   left: 50%;
-  margin-top: -300px; /* Bù trừ nửa chiều cao để ra giữa */
-  margin-left: -250px; /* Bù trừ nửa chiều rộng để ra giữa */
+  margin-top: -300px; 
+  margin-left: -250px; 
   width: 500px;
   height: 600px;
   z-index: 100;
   transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-  will-change: transform; /* Báo trình duyệt tối ưu GPU */
-  backface-visibility: hidden; /* Tránh rung lắc */
-  /* Đã xóa transform: translate(-50%, -50%); để không xung đột với React */
+  will-change: transform; 
+  backface-visibility: hidden; 
+  /* Đã xóa translate(-50%, -50%) để fix lỗi giật chớp với React inline-style */
 }
 
 .constellation-svg {
@@ -99,27 +97,49 @@
   cursor: pointer;
   transition: all 0.3s ease;
   filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
-  /* Đã xóa transform-box và transform-origin để sửa lỗi nhảy trên mobile */
+  /* Đã xóa transform-box và transform-origin để sửa lỗi nhảy tọa độ trên mobile */
   animation: starPulse 2s infinite alternate ease-in-out;
   will-change: filter, transform;
 }
 
+/* HIỆU ỨNG NHẤP NHÁY NHẸ MẶC ĐỊNH CHO SAO TRẮNG */
+@keyframes starPulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.8;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 1));
+  }
+}
+
+/* HÀO QUANG MÀU TÍM (Ẩn mặc định để chống nhiễu trên điện thoại) */
 .star-glow-pulse {
   fill: #ff00ff;
-  opacity: 0.45;
   filter: blur(5px);
-  animation: safeMobileGlow 1.6s infinite alternate ease-in-out;
+  opacity: 0; 
+  transform: scale(0);
   will-change: transform, opacity;
+  transition: opacity 0.3s ease;
+}
+
+/* KHI CLICK (Active) HOẶC HOVER -> BẬT HÀO QUANG TÍM TẠI ĐÚNG VỊ TRÍ ĐÓ */
+.interactive-group:hover .star-glow-pulse,
+.interactive-group.active .star-glow-pulse {
+  animation: safeMobileGlow 1.6s infinite alternate ease-in-out;
 }
 
 @keyframes safeMobileGlow {
   0% {
-    transform: scale(0.8);
-    opacity: 0.25;
+    transform: scale(1.2);
+    opacity: 0.4;
   }
   100% {
-    transform: scale(2.4);
-    opacity: 0.85;
+    transform: scale(2.5);
+    opacity: 0.9;
   }
 }
 
@@ -128,10 +148,10 @@
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 1px;
-  opacity: 0; /* Giấu chữ đi lúc bình thường */
+  opacity: 0; 
   transition: opacity 0.3s ease;
-  pointer-events: none; /* Tránh click nhầm vào chữ */
-  filter: drop-shadow(0 0 8px #ff00ff); /* Viền sáng hồng neon */
+  pointer-events: none; 
+  filter: drop-shadow(0 0 8px #ff00ff); 
   font-family: 'Cinzel Decorative', serif;
 }
 
@@ -155,12 +175,12 @@
 
 .instruction-text {
   position: absolute;
-  top: 10%; /* Nằm ở khoảng 15% tính từ trên xuống */
+  top: 10%; 
   left: 50%;
-  transform: translateX(-50%); /* Căn giữa tuyệt đối */
-  z-index: 90; /* Phải thấp hơn z-index của chòm sao (100) để không che mất sao */
+  transform: translateX(-50%); 
+  z-index: 90; 
   text-align: center;
-  pointer-events: none; /* Không cản trở việc click chuột phía sau nó */
+  pointer-events: none; 
   font-family: 'Cinzel Decorative', serif;
 }
 
@@ -178,25 +198,22 @@
 
 @media (max-width: 768px) {
   .constellation-wrapper {
-    /* Thu nhỏ toàn bộ bản đồ còn 70% để lọt thỏm vào màn hình ĐT (500px * 0.7 = 350px) */
     --base-scale: 0.7; 
-    /* Giảm nhẹ độ zoom để khi bấm vào sao không bị phóng to quá mức tràn màn hình */
     --zoom-scale: 1.6; 
   }
 
-  /* Kéo nút Back gọn lại một chút trên màn hình nhỏ */
   .profile-header {
     top: 20px;
     left: 20px;
   }
 
   .instruction-text {
-    top: 12%; /* Đẩy lên cao hơn một chút cho đỡ chật */
-    width: 90%; /* Không để chữ tràn viền trên màn hình nhỏ */
+    top: 12%; 
+    width: 90%; 
   }
 
   .instruction-text p {
-    font-size: 1.2rem; /* Thu nhỏ chữ lại */
+    font-size: 1.2rem; 
     padding: 15px 20px;
     letter-spacing: 1px;
   }
