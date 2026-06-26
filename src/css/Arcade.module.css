@@ -372,18 +372,18 @@
   /* --- CẮT NGẮN PHẦN THÂN CHỨA NÚT ĐIỀU KHIỂN --- */
   .arcade-control-panel {
     height: 120px; /* Giảm chiều cao tổng thể của dàn nút */
-    padding-bottom: 10px; /* Xóa khoảng trống màu tím thừa thãi bên dưới */
+    padding-bottom: 50px !important; /* Xóa khoảng trống màu tím thừa thãi bên dưới */
     width: 90%; /* Giảm chiều rộng để vừa vặn với thân máy đã làm ngắn */
     gap: 15px !important; /* Giảm khoảng cách giữa joystick và nút bấm lại một xíu */
   }
 
   /* Bóp nhỏ Joystick và 6 nút bấm cơ lại một xíu để vừa vặn với thân máy đã làm ngắn */
   .joystick-wrapper {
-    transform: scale(0.85);
-    transform-origin: bottom left;
+    transform: scale(0.70);
+    transform-origin: center left;
   }
   .buttons-grid {
-    transform: scale(0.85);
+    transform: scale(0.70);
     transform-origin: center right;
   }
 

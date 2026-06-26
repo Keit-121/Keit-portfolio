@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaChevronLeft } from 'react-icons/fa';
 import { useSound } from '../context/SoundContext';
 import styles from '../css/Passion.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,7 +16,6 @@ function SoundToggle() {
       <FontAwesomeIcon
         icon={isPlaying ? faVolumeHigh : faVolumeXmark}
         style={{ color: "white" }}
-        // Sửa lỗi: Gọi class SVG qua styles
         className={styles['sound-icon-svg']}
       />
     </button>
@@ -51,16 +49,22 @@ export function PassionPlanet() {
   const { playNewTrack, stopMusic } = useSound();
   const [activeStar, setActiveStar] = useState(null);
 
+  // 1. Nhận diện Mobile thông minh để sửa lỗi lệch trọng tâm Zoom
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
   useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+
     playNewTrack(`${import.meta.env.BASE_URL}PlanetBackgroundSoundTrack/PassionBgSound.mp3`);
 
     return () => {
+      window.removeEventListener('resize', handleResize);
       stopMusic();
     };
-  }, [])
+  }, []);
 
   const handleStarClick = (starKey) => {
-    // Nếu đang bấm ở sao này mà bấm lại -> Thu nhỏ về ban đầu
     if (activeStar === starKey) {
       setActiveStar(null);
     } else {
@@ -68,13 +72,19 @@ export function PassionPlanet() {
     }
   };
 
-  const scale = 2.5;
-  const targetX = activeStar ? (245 - starData[activeStar].x) : 0;
-  const targetY = activeStar ? (260 - starData[activeStar].y) : 0;
+  // 2. Toán học bù trừ tọa độ chuẩn cho PC và Mobile
+  const currentScale = activeStar 
+    ? (isMobile ? 1.6 : 2.5) 
+    : (isMobile ? 0.75 : 1);
+
+  const centerX = isMobile ? 250 : 245;
+  const centerY = isMobile ? 300 : 260;
+
+  const targetX = activeStar ? (centerX - starData[activeStar].x) : 0;
+  const targetY = activeStar ? (centerY - starData[activeStar].y) : 0;
 
   return (
-    <div className="planet-page-container">
-      {/* 1. ĐÂY LÀ PHẦN VIDEO BACKGROUND */}
+    <div className={styles['planet-page-container']}>
       <SoundToggle />
       <video
         autoPlay
@@ -86,8 +96,8 @@ export function PassionPlanet() {
         <source src={`${import.meta.env.BASE_URL}PlanetBackground/PassionBg.mp4`} type="video/mp4" />
       </video>
 
-      {/* Lớp phủ mờ (tùy chọn) giúp chữ nổi bật hơn trên nền video */}
       <div className="video-overlay"></div>
+
       <div className={styles['profile-header']}>
         <button
           className={styles['back-btn']}
@@ -102,31 +112,20 @@ export function PassionPlanet() {
       <div className={styles['instruction-text']}>
         <p>Click on the stars to explore</p>
       </div>
-      {/* ==============================================
-          BẢN ĐỒ CHÒM SAO CÓ HIỆU ỨNG ZOOM MƯỢT
-          ============================================== */}
+
       <div
         className={styles['constellation-wrapper']}
         style={{
-          /* Dùng translate để di chuyển sao về tâm.
-             scale để phóng to.
-             Không dùng transform-origin để tránh bị giật.
-          */
-          transform: activeStar
-            ? `scale(var(--zoom-scale, 2.5)) translate(${targetX}px, ${targetY}px)`
-            : 'scale(var(--base-scale, 1)) translate(0px, 0px)',
+          transform: `scale(${currentScale}) translate(${targetX}px, ${targetY}px)`,
           transition: 'transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)'
         }}
       >
         <svg viewBox="0 0 500 550" className={styles['constellation-svg']}>
-          {/* CÁC ĐƯỜNG NỐI */}
           <polyline points="400,70 430,100 430,200 432,230" className={styles['constellation-line']} />
           <polyline points="430,150 300,200 265,210 230,240 180,380 160,430 140,480" className={styles['constellation-line']} />
           <polyline points="140,480 90,490 40,470 5,410 35,380 70,330" className={styles['constellation-line']} />
 
           {Object.entries(starData).map(([key, data]) => {
-
-            // LOGIC MỚI: Nếu sao nằm sát lề phải (x > 350) -> lật chữ sang trái
             const isRightEdge = data.x > 350;
 
             return (
@@ -139,12 +138,16 @@ export function PassionPlanet() {
                 }}
               >
                 <g transform={`translate(${data.x}, ${data.y})`}>
+                  {/* PHÉP THUẬT: Lớp hào quang giả lập lóe sáng cho Mobile */}
+                  <circle cx="0" cy="0" r="8" className={styles['star-glow-pulse']} />
+
+                  {/* Ngôi sao chính */}
                   <path
                     d="M 0 -8 L 2.3 -2.3 L 8 0 L 2.3 2.3 L 0 8 L -2.3 2.3 L -8 0 L -2.3 -2.3 Z"
                     className={styles['star-dot-main']}
                   />
                 </g>
-                {/* Áp dụng lật chữ thông minh */}
+
                 <text
                   x={isRightEdge ? data.x - 15 : data.x + 15}
                   y={data.y + 4}

@@ -105,16 +105,22 @@
   will-change: filter, transform;
 }
 
-@keyframes starPulse {
+.star-glow-pulse {
+  fill: #ff00ff;
+  opacity: 0.45;
+  filter: blur(5px);
+  animation: safeMobileGlow 1.6s infinite alternate ease-in-out;
+  will-change: transform, opacity;
+}
+
+@keyframes safeMobileGlow {
   0% {
-    /* Trạng thái sáng mờ */
-    filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px #ff00ff);
-    transform: scale(0.95);
+    transform: scale(0.8);
+    opacity: 0.25;
   }
   100% {
-    /* Trạng thái LÓE SÁNG CHÓI LÒA (xếp chồng 4 lớp sáng) */
-    filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 10px #ff00ff) drop-shadow(0 0 20px #ff00ff);
-    transform: scale(1.05);
+    transform: scale(2.4);
+    opacity: 0.85;
   }
 }
 

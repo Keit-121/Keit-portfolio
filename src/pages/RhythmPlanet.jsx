@@ -20,7 +20,7 @@ const artists = [
 
 const songs = [
   { id: 's1', title: "CÓ THỂ", artist: "Hazel", image: `${import.meta.env.BASE_URL}Logo/SongLogo/CÓ THỂ.png`, url: `${import.meta.env.BASE_URL}Songs/Có thể.mp3` },
-  { id: 's2', title: "HUONGTRAM2026", artist: "Hazel", image: `${import.meta.env.BASE_URL}Logo/SongLogo/HUONGTRAM2026.avif`, url: `${import.meta.env.BASE_URL}Songs/HUONGTRAM2026.mp3` },
+  { id: 's2', title: "Night In Prague", artist: "MCK", image: `${import.meta.env.BASE_URL}Logo/SongLogo/Night In Prague.avif`, url: `${import.meta.env.BASE_URL}Songs/Night in Prague.mp3` },
   { id: 's3', title: "Thư tay", artist: "Dewie", image: `${import.meta.env.BASE_URL}Logo/SongLogo/Thư Tay.avif`, url: `${import.meta.env.BASE_URL}Songs/Thư Tay.mp3` },
   { id: 's4', title: "Mua Dong Ben Doi", artist: "Dewie", image: `${import.meta.env.BASE_URL}Logo/SongLogo/Mua Dong Ben Doi.avif`, url: `${import.meta.env.BASE_URL}Songs/Mua Dong Ben Doi.mp3` },
   { id: 's5', title: "No L", artist: "MCK", image: `${import.meta.env.BASE_URL}Logo/SongLogo/No L.avif`, url: `${import.meta.env.BASE_URL}Songs/No L.mp3` },
