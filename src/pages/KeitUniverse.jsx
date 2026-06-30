@@ -150,7 +150,7 @@ function KeitUniverse() {
       <div className="social-links">
         <a href="https://www.tiktok.com/@keit.1217?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" className="icon-tiktok"><FaTiktok /></a>
         <a href="https://www.facebook.com/tuan.kiet.343168?locale=vi_VN" target="_blank" rel="noopener noreferrer" className="icon-facebook"><FaFacebook /></a>
-        <a href="https://www.instagram.com/keit_121/" target="_blank" rel="noopener noreferrer" className="icon-instagram"><FaInstagram /></a>
+        <a href="https://www.instagram.com/v12.tk_/" target="_blank" rel="noopener noreferrer" className="icon-instagram"><FaInstagram /></a>
         <a href="https://github.com/Keit-121" target="_blank" rel="noopener noreferrer" className="icon-github"><FaGithub /></a>
       </div>
     </>
