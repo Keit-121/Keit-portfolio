@@ -35,9 +35,9 @@ const gameLinks = [
   { 
     id: 'valorant', 
     name: "Valorant",
-    description: "Keit#1217",  
+    description: "Keitt#さくら",  
     logo: `${import.meta.env.BASE_URL}Logo/Valorant.jpg`, // Đổi tên file logo của cậu vào đây
-    url: "https://tracker.gg/valorant/profile/riot/Keit%231217" 
+    url: "https://tracker.gg/valorant/profile/riot/Keitt%23%E3%81%95%E3%81%8F%E3%82%89" 
   },
   { 
     id: 'lol', 
