@@ -5,4 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/Keit-portfolio/',
+  server: {
+    host: true // Thêm dòng này để cho phép điện thoại truy cập
+  }
 })

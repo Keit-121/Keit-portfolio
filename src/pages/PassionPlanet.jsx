@@ -73,13 +73,13 @@ export function PassionPlanet() {
   };
 
   // 2. Toán học bù trừ tọa độ chuẩn cho PC và Mobile (Đã tối ưu lại theo kích thước chuẩn)
-  const currentScale = activeStar 
-    ? (isMobile ? 1.6 : 2.5) 
+  const currentScale = activeStar
+    ? (isMobile ? 1.6 : 2.5)
     : (isMobile ? 0.75 : 1);
 
   // Lấy tâm bản đồ 500x600 làm gốc
-  const centerX = 250; 
-  const centerY = 300; 
+  const centerX = 250;
+  const centerY = 300;
 
   const targetX = activeStar ? (centerX - starData[activeStar].x) : 0;
   const targetY = activeStar ? (centerY - starData[activeStar].y) : 0;
@@ -122,6 +122,13 @@ export function PassionPlanet() {
         }}
       >
         <svg viewBox="0 0 500 550" className={styles['constellation-svg']}>
+          <defs>
+            <radialGradient id="glowGradient" cx="50%" cy="50%" r="50%">
+              <stop offset="20%" stopColor="#ff66ff" stopOpacity="1.2" />
+              <stop offset="50%" stopColor="#ff66ff" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#ff66ff" stopOpacity="0" />
+            </radialGradient>
+          </defs>
           <polyline points="400,70 430,100 430,200 432,230" className={styles['constellation-line']} />
           <polyline points="430,150 300,200 265,210 230,240 180,380 160,430 140,480" className={styles['constellation-line']} />
           <polyline points="140,480 90,490 40,470 5,410 35,380 70,330" className={styles['constellation-line']} />
@@ -140,7 +147,11 @@ export function PassionPlanet() {
               >
                 <g transform={`translate(${data.x}, ${data.y})`}>
                   {/* PHÉP THUẬT: Lớp hào quang giả lập lóe sáng cho Mobile */}
-                  <circle cx="0" cy="0" r="8" className={styles['star-glow-pulse']} />
+                  <circle
+                    cx="0" cy="0" r="22"
+                    fill="url(#glowGradient)"
+                    className={styles['svg-halo-glow']}
+                  />
 
                   {/* Ngôi sao chính */}
                   <path

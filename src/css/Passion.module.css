@@ -101,6 +101,41 @@
   animation: starPulse 2s infinite alternate ease-in-out;
   will-change: filter, transform;
 }
+.svg-halo-glow {
+  opacity: 0;
+  transform: scale(0.5);
+  pointer-events: none; /* Tránh cản trở click */
+  transition: opacity 0.3s ease;
+  transform-origin: 0px 0px;
+  mix-blend-mode: color-dodge;
+}
+
+/* Khi ngôi sao được click (Active) -> Hào quang nhấp nháy */
+.interactive-group.active .svg-halo-glow {
+  animation: haloPulse 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes sunGlarePulse {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.6); /* Phóng to quầng sáng đè lên cả không gian */
+    opacity: 1;
+  }
+}
+
+@keyframes haloPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+}
 
 /* HIỆU ỨNG NHẤP NHÁY NHẸ MẶC ĐỊNH CHO SAO TRẮNG */
 @keyframes starPulse {
@@ -116,32 +151,6 @@
   }
 }
 
-/* HÀO QUANG MÀU TÍM (Ẩn mặc định để chống nhiễu trên điện thoại) */
-.star-glow-pulse {
-  fill: #ff00ff;
-  filter: blur(5px);
-  opacity: 0; 
-  transform: scale(0);
-  will-change: transform, opacity;
-  transition: opacity 0.3s ease;
-}
-
-/* KHI CLICK (Active) HOẶC HOVER -> BẬT HÀO QUANG TÍM TẠI ĐÚNG VỊ TRÍ ĐÓ */
-.interactive-group:hover .star-glow-pulse,
-.interactive-group.active .star-glow-pulse {
-  animation: safeMobileGlow 1.6s infinite alternate ease-in-out;
-}
-
-@keyframes safeMobileGlow {
-  0% {
-    transform: scale(1.2);
-    opacity: 0.4;
-  }
-  100% {
-    transform: scale(2.5);
-    opacity: 0.9;
-  }
-}
 
 .star-label {
   fill: #fff;
@@ -151,22 +160,24 @@
   opacity: 0; 
   transition: opacity 0.3s ease;
   pointer-events: none; 
-  filter: drop-shadow(0 0 8px #ff00ff); 
+  filter: drop-shadow(0 0 8px #ff66ff); 
   font-family: 'Cinzel Decorative', serif;
 }
 
 /* KHI HOVER VÀO CHẤM TRÒN */
 .interactive-group:hover .star-dot-main {
-  fill: #ff00ff;
-  filter: drop-shadow(0 0 10px #ff00ff);
+  fill: #ff66ff;
+  filter: drop-shadow(0 0 10px #ff66ff);
 }
 
 /* KHI CLICK VÀO CHẤM TRÒN (Trạng thái Active) */
 .interactive-group.active .star-dot-main {
-  fill: #ff00ff;
-  stroke: #ff00ff;
-  filter: drop-shadow(0 0 15px #ff00ff) drop-shadow(0 0 30px #ff00ff);
+  fill: #ff66ff;
+  stroke: #ff66ff;
+  /* Kích hoạt hiệu ứng nhấp nháy màu tím */
+  animation: activeStarPulse 1.2s infinite alternate ease-in-out;
 }
+
 
 /* Hiện chữ khi active */
 .interactive-group.active .star-label {
